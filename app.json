@@ -3,7 +3,7 @@
     "name": "myReactNativeProject-2",
     "slug": "myReactNativeProject-2",
     "version": "1.0.0",
-    "orientation": "portrait",
+    "orientation": "default",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {

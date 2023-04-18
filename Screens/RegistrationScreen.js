@@ -2,17 +2,13 @@ import {
   StyleSheet,
   Text,
   View,
-  ImageBackground,
+  Image,
   TextInput,
-  Button,
   TouchableOpacity,
   Platform,
   KeyboardAvoidingView,
-  Keyboard,
-  TouchableWithoutFeedback,
-  Dimensions,
 } from "react-native";
-import { useState, useEffect, useCallback } from "react";
+import { useState } from "react";
 
 const initialState = {
   login: "",
@@ -21,62 +17,69 @@ const initialState = {
 };
 
 const RegistrationScreen = ({
-  screenHeight,
   screenWidth,
-  //   handleButtonClick,
   handleFocus,
+  handleButtonClick,
+  isShowKeyboard,
 }) => {
   const [state, setstate] = useState(initialState);
 
-  const handleButtonClick = () => {
-    // setIsShowKeyboard(false);
-    Keyboard.dismiss();
+  const handleSubmit = () => {
+    handleButtonClick();
     console.log(state);
     setstate(initialState);
   };
   return (
     <>
+      <View style={styles.avatar}>
+        <View style={styles.addButton}>
+          <Image
+            source={require("../assets/images/addButton.png")}
+            style={{ width: 13, height: 13 }}
+          />
+        </View>
+      </View>
       <Text style={styles.headerTitle}>Регистрация</Text>
       <View style={{ ...styles.form, width: screenWidth }}>
-        {/* <View style={{ marginBottom: isShowKeyboard ? 32 : 109 }}> */}
-        <KeyboardAvoidingView
-          behavior={Platform.OS == "ios" ? "padding" : "height"}
-        >
-          <TextInput
-            style={styles.input}
-            placeholder="Логин"
-            value={state.login}
-            onFocus={handleFocus}
-            onChangeText={(value) =>
-              setstate((prevState) => ({ ...prevState, login: value }))
-            }
-          />
-          <TextInput
-            style={styles.input}
-            placeholder="Адрес электронной почты"
-            value={state.email}
-            onFocus={handleFocus}
-            onChangeText={(value) =>
-              setstate((prevState) => ({ ...prevState, email: value }))
-            }
-          />
-          <TextInput
-            style={styles.input}
-            placeholder="Пароль"
-            secureTextEntry={true}
-            value={state.password}
-            onFocus={handleFocus}
-            onChangeText={(value) =>
-              setstate((prevState) => ({
-                ...prevState,
-                password: value,
-              }))
-            }
-          />
-        </KeyboardAvoidingView>
-        {/* </View> */}
+        <View style={{ marginBottom: isShowKeyboard ? 159 : 43 }}>
+          <KeyboardAvoidingView
+            behavior={Platform.OS == "ios" ? "padding" : "height"}
+          >
+            <TextInput
+              style={styles.input}
+              placeholder="Логин"
+              value={state.login}
+              onFocus={handleFocus}
+              onChangeText={(value) =>
+                setstate((prevState) => ({ ...prevState, login: value }))
+              }
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Адрес электронной почты"
+              value={state.email}
+              onFocus={handleFocus}
+              onChangeText={(value) =>
+                setstate((prevState) => ({ ...prevState, email: value }))
+              }
+            />
+            <TextInput
+              style={{ ...styles.input, marginBottom: 0 }}
+              placeholder="Пароль"
+              secureTextEntry={true}
+              value={state.password}
+              onFocus={handleFocus}
+              onChangeText={(value) =>
+                setstate((prevState) => ({
+                  ...prevState,
+                  password: value,
+                }))
+              }
+            />
+          </KeyboardAvoidingView>
+        </View>
         <TouchableOpacity
-          onPress={handleButtonClick}
+          onPress={handleSubmit}
           style={styles.button}
           activeOpacity={0.8}
         >
@@ -89,22 +92,42 @@ const RegistrationScreen = ({
 };
 
 const styles = StyleSheet.create({
+  avatar: {
+    position: "relative",
+    top: -60,
+    marginBottom: -60,
+    width: 120,
+    height: 120,
+    backgroundColor: "#F6F6F6",
+    borderRadius: 16,
+  },
+  addButton: {
+    width: 25,
+    height: 25,
+    borderColor: "#FF6C00",
+    borderRadius: 50,
+    borderWidth: 1,
+    position: "relative",
+    right: -105,
+    bottom: -80,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
   headerTitle: {
     fontSize: 30,
     fontFamily: "Roboto-Medium",
     lineHeight: 35,
-    marginBottom: 33,
+    marginVertical: 32,
   },
   form: {
-    width: 343,
+    paddingHorizontal: 16,
   },
   input: {
     borderWidth: 1,
     borderRadius: 8,
     borderColor: "#E8E8E8",
     backgroundColor: "#F6F6F6",
-    // marginHorizontal: 16,
-    // width: 343,
     height: 50,
     padding: 16,
     marginBottom: 16,
@@ -113,7 +136,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#FF6C00",
     borderRadius: 100,
     height: 51,
-    marginTop: 109,
     alignItems: "center",
     justifyContent: "center",
     marginBottom: 16,
@@ -129,7 +151,7 @@ const styles = StyleSheet.create({
     fontFamily: "Roboto-Regular",
     lineHeight: 19,
     textAlign: "center",
-    marginBottom: 78,
+    marginBottom: 45,
   },
 });
 

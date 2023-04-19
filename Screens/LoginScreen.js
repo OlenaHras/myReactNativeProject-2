@@ -2,11 +2,12 @@ import {
   StyleSheet,
   Text,
   View,
-  TextInput,
+  // TextInput,
   TouchableOpacity,
   Platform,
   KeyboardAvoidingView,
 } from "react-native";
+import { TextInput } from "react-native-element-textinput";
 import { useState } from "react";
 
 const initialState = {
@@ -37,7 +38,9 @@ const LoginScreen = ({
           >
             <TextInput
               style={styles.input}
+              focusColor="#FF6C00"
               placeholder="Адрес электронной почты"
+              placeholderTextColor="#BDBDBD"
               value={state.email}
               onFocus={handleFocus}
               onChangeText={(value) =>
@@ -46,7 +49,9 @@ const LoginScreen = ({
             />
             <TextInput
               style={{ ...styles.input, marginBottom: 0 }}
+              focusColor="#FF6C00"
               placeholder="Пароль"
+              placeholderTextColor="#BDBDBD"
               secureTextEntry={true}
               value={state.password}
               onFocus={handleFocus}

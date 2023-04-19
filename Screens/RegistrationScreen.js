@@ -3,11 +3,12 @@ import {
   Text,
   View,
   Image,
-  TextInput,
+  // TextInput,
   TouchableOpacity,
   Platform,
   KeyboardAvoidingView,
 } from "react-native";
+import { TextInput } from "react-native-element-textinput";
 import { useState } from "react";
 
 const initialState = {
@@ -48,8 +49,10 @@ const RegistrationScreen = ({
             <TextInput
               style={styles.input}
               placeholder="Логин"
+              placeholderTextColor="#BDBDBD"
               value={state.login}
               onFocus={handleFocus}
+              focusColor="#FF6C00"
               onChangeText={(value) =>
                 setstate((prevState) => ({ ...prevState, login: value }))
               }
@@ -57,18 +60,25 @@ const RegistrationScreen = ({
             <TextInput
               style={styles.input}
               placeholder="Адрес электронной почты"
+              placeholderTextColor="#BDBDBD"
               value={state.email}
               onFocus={handleFocus}
+              focusColor="#FF6C00"
               onChangeText={(value) =>
                 setstate((prevState) => ({ ...prevState, email: value }))
               }
             />
             <TextInput
-              style={{ ...styles.input, marginBottom: 0 }}
+              style={{
+                ...styles.input,
+                marginBottom: 0,
+              }}
               placeholder="Пароль"
+              placeholderTextColor="#BDBDBD"
               secureTextEntry={true}
               value={state.password}
-              onFocus={handleFocus}
+              onFocus={() => handleFocus}
+              focusColor="#FF6C00"
               onChangeText={(value) =>
                 setstate((prevState) => ({
                   ...prevState,

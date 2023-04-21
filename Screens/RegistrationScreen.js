@@ -3,12 +3,12 @@ import {
   Text,
   View,
   Image,
-  // TextInput,
+  TextInput,
   TouchableOpacity,
   Platform,
   KeyboardAvoidingView,
 } from "react-native";
-import { TextInput } from "react-native-element-textinput";
+
 import { useState } from "react";
 
 const initialState = {
@@ -25,11 +25,23 @@ const RegistrationScreen = ({
   isShowKeyboard,
 }) => {
   const [state, setstate] = useState(initialState);
+  const [isFocused, setIsFocused] = useState("");
 
   const handleSubmit = () => {
     handleButtonClick();
     console.log(state);
     setstate(initialState);
+  };
+
+  const onFocus = (inputName) => {
+    handleFocus();
+    setIsFocused(inputName);
+  };
+
+  const onBlur = (inputName) => {
+    if (isFocused === inputName) {
+      setIsFocused("");
+    }
   };
 
   return (
@@ -46,34 +58,37 @@ const RegistrationScreen = ({
       <View style={{ ...styles.form, width: screenWidth }}>
         <View
           style={{
-            marginBottom: isShowKeyboard
-              ? 159
-              : screenWidth > screenHeight
-              ? 8
-              : 43,
+            marginBottom:
+              screenWidth > screenHeight ? 8 : isShowKeyboard ? 159 : 43,
           }}
         >
           <KeyboardAvoidingView
             behavior={Platform.OS == "ios" ? "padding" : "height"}
           >
             <TextInput
-              style={styles.input}
+              style={{
+                ...styles.input,
+                borderColor: isFocused === "login" ? "#FF6C00" : "#E8E8E8",
+              }}
               placeholder="Логин"
               placeholderTextColor="#BDBDBD"
               value={state.login}
-              onFocus={handleFocus}
-              focusColor="#FF6C00"
+              onFocus={() => onFocus("login")}
+              onBlur={() => onBlur("login")}
               onChangeText={(value) =>
                 setstate((prevState) => ({ ...prevState, login: value }))
               }
             />
             <TextInput
-              style={styles.input}
+              style={{
+                ...styles.input,
+                borderColor: isFocused === "email" ? "#FF6C00" : "#E8E8E8",
+              }}
               placeholder="Адрес электронной почты"
               placeholderTextColor="#BDBDBD"
               value={state.email}
-              onFocus={handleFocus}
-              focusColor="#FF6C00"
+              onFocus={() => onFocus("email")}
+              onBlur={() => onBlur("email")}
               onChangeText={(value) =>
                 setstate((prevState) => ({ ...prevState, email: value }))
               }
@@ -81,14 +96,15 @@ const RegistrationScreen = ({
             <TextInput
               style={{
                 ...styles.input,
+                borderColor: isFocused === "password" ? "#FF6C00" : "#E8E8E8",
                 marginBottom: 0,
               }}
               placeholder="Пароль"
               placeholderTextColor="#BDBDBD"
               secureTextEntry={true}
               value={state.password}
-              onFocus={handleFocus}
-              focusColor="#FF6C00"
+              onFocus={() => onFocus("password")}
+              onBlur={() => onBlur("password")}
               onChangeText={(value) =>
                 setstate((prevState) => ({
                   ...prevState,
@@ -146,10 +162,9 @@ const styles = StyleSheet.create({
   input: {
     borderWidth: 1,
     borderRadius: 8,
-    borderColor: "#E8E8E8",
     backgroundColor: "#F6F6F6",
     height: 50,
-    padding: 16,
+    paddingHorizontal: 16,
     marginBottom: 16,
   },
   button: {

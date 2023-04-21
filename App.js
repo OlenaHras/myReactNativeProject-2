@@ -45,11 +45,12 @@ export default function App() {
     }
     prepare();
     const onChange = () => {
+      setIsShowKeyboard(false);
       setScreenHeight(Dimensions.get("window").height);
       setScreenWidth(Dimensions.get("window").width);
     };
     Dimensions.addEventListener("change", onChange);
-  }, [screenWidth]);
+  }, []);
 
   const onLayout = useCallback(async () => {
     if (fontsLoaded) {

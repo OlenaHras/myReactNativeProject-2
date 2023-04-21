@@ -2,12 +2,12 @@ import {
   StyleSheet,
   Text,
   View,
-  // TextInput,
+  TextInput,
   TouchableOpacity,
   Platform,
   KeyboardAvoidingView,
 } from "react-native";
-import { TextInput } from "react-native-element-textinput";
+
 import { useState } from "react";
 
 const initialState = {
@@ -23,6 +23,7 @@ const LoginScreen = ({
   isShowKeyboard,
 }) => {
   const [state, setstate] = useState(initialState);
+  const [isFocused, setIsFocused] = useState("");
 
   const handleSubmit = () => {
     handleButtonClick();
@@ -30,34 +31,57 @@ const LoginScreen = ({
     setstate(initialState);
   };
 
+  const onFocus = (inputName) => {
+    handleFocus();
+    setIsFocused(inputName);
+  };
+
+  const onBlur = (inputName) => {
+    if (isFocused === inputName) {
+      setIsFocused("");
+    }
+  };
+
   const orientation = screenWidth > screenHeight ? 24 : 111;
   return (
     <>
       <Text style={styles.headerTitle}>Войти</Text>
       <View style={{ ...styles.form, width: screenWidth }}>
-        <View style={{ marginBottom: isShowKeyboard ? 93 : 43 }}>
+        <View
+          style={{
+            marginBottom:
+              screenWidth > screenHeight ? 24 : isShowKeyboard ? 93 : 43,
+          }}
+        >
           <KeyboardAvoidingView
             behavior={Platform.OS == "ios" ? "padding" : "height"}
           >
             <TextInput
-              style={styles.input}
-              focusColor="#FF6C00"
+              style={{
+                ...styles.input,
+                borderColor: isFocused === "email" ? "#FF6C00" : "#E8E8E8",
+              }}
               placeholder="Адрес электронной почты"
               placeholderTextColor="#BDBDBD"
               value={state.email}
-              onFocus={handleFocus}
+              onFocus={() => onFocus("email")}
+              onBlur={() => onBlur("email")}
               onChangeText={(value) =>
                 setstate((prevState) => ({ ...prevState, email: value }))
               }
             />
             <TextInput
-              style={{ ...styles.input, marginBottom: 0 }}
-              focusColor="#FF6C00"
+              style={{
+                ...styles.input,
+                marginBottom: 0,
+                borderColor: isFocused === "password" ? "#FF6C00" : "#E8E8E8",
+              }}
               placeholder="Пароль"
               placeholderTextColor="#BDBDBD"
               secureTextEntry={true}
               value={state.password}
-              onFocus={handleFocus}
+              onFocus={() => onFocus("password")}
+              onBlur={() => onBlur("password")}
               onChangeText={(value) =>
                 setstate((prevState) => ({
                   ...prevState,
@@ -95,10 +119,9 @@ const styles = StyleSheet.create({
   input: {
     borderWidth: 1,
     borderRadius: 8,
-    borderColor: "#E8E8E8",
     backgroundColor: "#F6F6F6",
     height: 50,
-    padding: 16,
+    paddingHorizontal: 16,
     marginBottom: 16,
   },
   button: {
@@ -120,7 +143,6 @@ const styles = StyleSheet.create({
     fontFamily: "Roboto-Regular",
     lineHeight: 19,
     textAlign: "center",
-    // marginBottom: 111,
   },
 });
 

@@ -19,6 +19,7 @@ const initialState = {
 
 const RegistrationScreen = ({
   screenWidth,
+  screenHeight,
   handleFocus,
   handleButtonClick,
   isShowKeyboard,
@@ -30,6 +31,7 @@ const RegistrationScreen = ({
     console.log(state);
     setstate(initialState);
   };
+
   return (
     <>
       <View style={styles.avatar}>
@@ -42,7 +44,15 @@ const RegistrationScreen = ({
       </View>
       <Text style={styles.headerTitle}>Регистрация</Text>
       <View style={{ ...styles.form, width: screenWidth }}>
-        <View style={{ marginBottom: isShowKeyboard ? 159 : 43 }}>
+        <View
+          style={{
+            marginBottom: isShowKeyboard
+              ? 159
+              : screenWidth > screenHeight
+              ? 8
+              : 43,
+          }}
+        >
           <KeyboardAvoidingView
             behavior={Platform.OS == "ios" ? "padding" : "height"}
           >
@@ -77,7 +87,7 @@ const RegistrationScreen = ({
               placeholderTextColor="#BDBDBD"
               secureTextEntry={true}
               value={state.password}
-              onFocus={() => handleFocus}
+              onFocus={handleFocus}
               focusColor="#FF6C00"
               onChangeText={(value) =>
                 setstate((prevState) => ({

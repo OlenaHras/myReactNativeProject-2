@@ -17,6 +17,7 @@ const initialState = {
 
 const LoginScreen = ({
   screenWidth,
+  screenHeight,
   handleButtonClick,
   handleFocus,
   isShowKeyboard,
@@ -28,6 +29,8 @@ const LoginScreen = ({
     console.log(state);
     setstate(initialState);
   };
+
+  const orientation = screenWidth > screenHeight ? 24 : 111;
   return (
     <>
       <Text style={styles.headerTitle}>Войти</Text>
@@ -71,7 +74,9 @@ const LoginScreen = ({
         >
           <Text style={styles.btnTitle}>Войти</Text>
         </TouchableOpacity>
-        <Text style={styles.linkToLogIn}>Нет аккаунта? Зарегистрироваться</Text>
+        <Text style={{ ...styles.linkToLogIn, marginBottom: orientation }}>
+          Нет аккаунта? Зарегистрироваться
+        </Text>
       </View>
     </>
   );
@@ -115,7 +120,7 @@ const styles = StyleSheet.create({
     fontFamily: "Roboto-Regular",
     lineHeight: 19,
     textAlign: "center",
-    marginBottom: 111,
+    // marginBottom: 111,
   },
 });
 

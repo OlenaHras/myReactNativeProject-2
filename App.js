@@ -24,7 +24,7 @@ export default function App() {
   const [screenHeight, setScreenHeight] = useState(
     Dimensions.get("window").height
   );
-  const [isReady, setIsReady] = useState(false);
+
   const [fontsLoaded] = useFonts({
     "Roboto-Regular": require("./assets/Fonts/Roboto-Regular.ttf"),
     "Roboto-Medium": require("./assets/Fonts/Roboto-Medium.ttf"),
@@ -73,12 +73,14 @@ export default function App() {
           <View style={styles.screenWrapper}>
             <RegistrationScreen
               screenWidth={screenWidth}
+              screenHeight={screenHeight}
               handleButtonClick={handleButtonClick}
               handleFocus={handleFocus}
               isShowKeyboard={isShowKeyboard}
             />
             {/* <LoginScreen
               screenWidth={screenWidth}
+              screenHeight={screenHeight}
               handleButtonClick={handleButtonClick}
               handleFocus={handleFocus}
               isShowKeyboard={isShowKeyboard}
@@ -112,45 +114,5 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
-  },
-  headerTitle: {
-    fontSize: 30,
-    fontFamily: "Roboto-Medium",
-    lineHeight: 35,
-    marginBottom: 33,
-  },
-  form: {
-    width: 343,
-  },
-  input: {
-    borderWidth: 1,
-    borderRadius: 8,
-    borderColor: "#E8E8E8",
-    backgroundColor: "#F6F6F6",
-    height: 50,
-    padding: 16,
-    marginBottom: 16,
-  },
-  button: {
-    backgroundColor: "#FF6C00",
-    borderRadius: 100,
-    height: 51,
-    marginTop: 109,
-    alignItems: "center",
-    justifyContent: "center",
-    marginBottom: 16,
-  },
-  btnTitle: {
-    color: "#FFFFFF",
-    fontSize: 16,
-    fontFamily: "Roboto-Regular",
-    lineHeight: 19,
-  },
-  linkToLogIn: {
-    fontSize: 16,
-    fontFamily: "Roboto-Regular",
-    lineHeight: 19,
-    textAlign: "center",
-    marginBottom: 78,
   },
 });

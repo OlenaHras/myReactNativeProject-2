@@ -37,6 +37,7 @@ const LoginScreen = ({ navigation }) => {
     setstate(initialState);
     console.log(state);
     Keyboard.dismiss();
+    navigation.navigate("Home");
   };
 
   useEffect(() => {

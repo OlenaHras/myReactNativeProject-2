@@ -1,20 +1,24 @@
+import "react-native-gesture-handler";
 import { useState, useEffect, useCallback } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { StyleSheet, View } from "react-native";
-
-import { useFonts } from "expo-font";
+import { StyleSheet, View, Button, Image } from "react-native";
 import * as SplashScreen from "expo-splash-screen";
-
+import { useFonts } from "expo-font";
+// import { useRoute } from "./router";
 import RegistrationScreen from "./Screens/RegistrationScreen";
 import LoginScreen from "./Screens/LoginScreen";
+import Home, { HomeTabs } from "./Screens/Home";
 
 const MainStack = createStackNavigator();
 
 export default function App() {
+  // const routing = useRoute(true);
+
   const [fontsLoaded] = useFonts({
     "Roboto-Regular": require("./assets/Fonts/Roboto-Regular.ttf"),
     "Roboto-Medium": require("./assets/Fonts/Roboto-Medium.ttf"),
+    "Roboto-Bolt": require("./assets/Fonts/Roboto-Bold.ttf"),
   });
 
   useEffect(() => {
@@ -35,7 +39,7 @@ export default function App() {
   return (
     <View style={styles.container} onLayout={onLayout}>
       <NavigationContainer>
-        <MainStack.Navigator>
+        <MainStack.Navigator initialRouteName="Login">
           <MainStack.Screen
             name="Login"
             component={LoginScreen}
@@ -46,8 +50,42 @@ export default function App() {
             component={RegistrationScreen}
             options={{ headerShown: false }}
           />
+          <MainStack.Screen
+            name="Home"
+            component={Home}
+            options={{
+              // headerTitle: "Публикации",
+              // headerBackTitleVisible: false,
+              headerShown: false,
+              // headerLeft: () => null,
+              // headerRight: () => (
+              //   <Image
+              //     source={require("./assets/images/log-out.png")}
+              //     style={{
+              //       width: 24,
+              //       height: 24,
+              //       marginRight: 10,
+              //     }}
+              //   />
+              //   // <Button
+              //   //   onPress={() => alert("This is a button!")}
+              //   //   title=""
+              //   //   color="#fff"
+              //   // />
+              // ),
+            }}
+          />
         </MainStack.Navigator>
       </NavigationContainer>
+
+      {/* <NavigationContainer> */}
+      {/* {routing} */}
+      {/* <TabStack.Navigator>
+          <TabStack.Screen name="Posts" component={PostsScreen} />
+          <TabStack.Screen name="Create" component={CreatePostsScreen} />
+          <TabStack.Screen name="Profile" component={ProfileScreen} />
+        </TabStack.Navigator> */}
+      {/* </NavigationContainer> */}
     </View>
   );
 }

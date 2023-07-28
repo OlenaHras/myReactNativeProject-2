@@ -26,7 +26,7 @@ const Home = ({ navigation }) => {
         }}
       >
         <TabStack.Screen
-          name="Публикации"
+          name="Публікації "
           component={PostsScreen}
           options={{
             headerRight: () => (
@@ -61,7 +61,7 @@ const Home = ({ navigation }) => {
         />
 
         <TabStack.Screen
-          name="Создать публикацию"
+          name="Створити публікацію "
           component={CreatePostsScreen}
           options={{
             headerLeft: () => (
@@ -72,7 +72,7 @@ const Home = ({ navigation }) => {
                 }}
               />
             ),
-            title: "Создать публикацию",
+            title: "Створити публікацію",
             tabBarStyle: { display: "none" },
             headerTitleAlign: "center",
             tabBarIcon: (focused, size, color) => {
@@ -92,7 +92,7 @@ const Home = ({ navigation }) => {
         />
 
         <TabStack.Screen
-          name="Профиль"
+          name="Профіль"
           component={ProfileScreen}
           options={{
             headerLeft: () => (
@@ -105,7 +105,7 @@ const Home = ({ navigation }) => {
             ),
             // headerLeft: true,
             headerShown: true,
-            title: "Профиль",
+            title: "Профіль",
             tabBarStyle: { display: "none" },
             headerTitleAlign: "center",
             tabBarIcon: (focused, size, color) => {

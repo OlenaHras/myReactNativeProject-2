@@ -26,10 +26,10 @@ const LoginScreen = ({ navigation }) => {
   const [isFocused, setIsFocused] = useState("");
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
   const [screenWidth, setScreenWidth] = useState(
-    Dimensions.get("window").width
+    Dimensions.get("screen").width
   );
   const [screenHeight, setScreenHeight] = useState(
-    Dimensions.get("window").height
+    Dimensions.get("screen").height
   );
 
   const handleButtonClick = () => {
@@ -41,6 +41,7 @@ const LoginScreen = ({ navigation }) => {
   };
 
   useEffect(() => {
+    console.log(screenHeight + 20);
     const onChange = () => {
       setIsShowKeyboard(false);
       setScreenHeight(Dimensions.get("window").height);
@@ -73,7 +74,7 @@ const LoginScreen = ({ navigation }) => {
           }}
         >
           <View style={styles.screenWrapper}>
-            <Text style={styles.headerTitle}>Войти</Text>
+            <Text style={styles.headerTitle}>Увійти</Text>
             <View style={{ ...styles.form, width: screenWidth }}>
               <View
                 style={{
@@ -90,7 +91,7 @@ const LoginScreen = ({ navigation }) => {
                       borderColor:
                         isFocused === "email" ? "#FF6C00" : "#E8E8E8",
                     }}
-                    placeholder="Адрес электронной почты"
+                    placeholder="Адреса електронної пошти"
                     placeholderTextColor="#BDBDBD"
                     value={state.email}
                     onFocus={() => onFocus("email")}
@@ -126,7 +127,7 @@ const LoginScreen = ({ navigation }) => {
                 style={styles.button}
                 activeOpacity={0.8}
               >
-                <Text style={styles.btnTitle}>Войти</Text>
+                <Text style={styles.btnTitle}>Увійти</Text>
               </TouchableOpacity>
 
               <TouchableOpacity
@@ -136,7 +137,7 @@ const LoginScreen = ({ navigation }) => {
                 <Text
                   style={{ ...styles.linkToLogIn, marginBottom: orientation }}
                 >
-                  Нет аккаунта? Зарегистрироваться
+                  Вже є акаунт? Увійти
                 </Text>
               </TouchableOpacity>
             </View>

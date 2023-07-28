@@ -29,10 +29,10 @@ const RegistrationScreen = ({ navigation }) => {
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
 
   const [screenWidth, setScreenWidth] = useState(
-    Dimensions.get("window").width
+    Dimensions.get("screen").width
   );
   const [screenHeight, setScreenHeight] = useState(
-    Dimensions.get("window").height
+    Dimensions.get("screen").height
   );
 
   const handleButtonClick = () => {
@@ -83,7 +83,7 @@ const RegistrationScreen = ({ navigation }) => {
                 />
               </View>
             </View>
-            <Text style={styles.headerTitle}>Регистрация</Text>
+            <Text style={styles.headerTitle}>Реєстрація</Text>
             <View style={{ ...styles.form, width: screenWidth }}>
               <View
                 style={{
@@ -100,7 +100,7 @@ const RegistrationScreen = ({ navigation }) => {
                       borderColor:
                         isFocused === "login" ? "#FF6C00" : "#E8E8E8",
                     }}
-                    placeholder="Логин"
+                    placeholder="Логін"
                     placeholderTextColor="#BDBDBD"
                     value={state.login}
                     onFocus={() => onFocus("login")}
@@ -118,7 +118,7 @@ const RegistrationScreen = ({ navigation }) => {
                       borderColor:
                         isFocused === "email" ? "#FF6C00" : "#E8E8E8",
                     }}
-                    placeholder="Адрес электронной почты"
+                    placeholder="Адреса електронної пошти"
                     placeholderTextColor="#BDBDBD"
                     value={state.email}
                     onFocus={() => onFocus("email")}
@@ -157,14 +157,14 @@ const RegistrationScreen = ({ navigation }) => {
                 style={styles.button}
                 activeOpacity={0.8}
               >
-                <Text style={styles.btnTitle}>Зарегистрироваться</Text>
+                <Text style={styles.btnTitle}>Зареєстуватися</Text>
               </TouchableOpacity>
 
               <TouchableOpacity
                 onPress={() => navigation.navigate("Login")}
                 activeOpacity={0.6}
               >
-                <Text style={styles.linkToLogIn}>Уже есть аккаунт? Войти</Text>
+                <Text style={styles.linkToLogIn}>Вже є акаунт? Увійти </Text>
               </TouchableOpacity>
             </View>
           </View>

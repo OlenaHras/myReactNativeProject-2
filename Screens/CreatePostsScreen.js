@@ -42,7 +42,7 @@ const CreatePostsScreen = () => {
           <Image source={require("../assets/images/camera.png")} />
         </View>
       </View>
-      <Text style={styles.addPictureTitle}>Загрузите фото</Text>
+      <Text style={styles.addPictureTitle}>Завантажте фото</Text>
       <View
       // style={{
       //   marginBottom:
@@ -57,7 +57,7 @@ const CreatePostsScreen = () => {
               ...styles.input,
               borderBottomColor: isFocused === "title" ? "#FF6C00" : "#E8E8E8",
             }}
-            placeholder="Название..."
+            placeholder="Назва..."
             placeholderTextColor="#BDBDBD"
             value={state.title}
             onFocus={() => onFocus("title")}
@@ -73,7 +73,7 @@ const CreatePostsScreen = () => {
               borderBottomColor:
                 isFocused === "location" ? "#FF6C00" : "#E8E8E8",
             }}
-            placeholder="Местность..."
+            placeholder="Місцевість......"
             placeholderTextColor="#BDBDBD"
             value={state.location}
             onFocus={() => onFocus("location")}
@@ -92,7 +92,7 @@ const CreatePostsScreen = () => {
         style={styles.button}
         activeOpacity={0.8}
       >
-        <Text style={styles.btnTitle}>Опубликовать</Text>
+        <Text style={styles.btnTitle}>Опубліковати</Text>
       </TouchableOpacity>
       <View style={styles.footer}>
         <TouchableOpacity
@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     paddingHorizontal: 16,
-    marginTop: 32,
+    // marginTop: 32,
   },
   addContainer: {
     width: "100%",

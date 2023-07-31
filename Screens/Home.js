@@ -1,73 +1,77 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { View, StyleSheet, Image, Text } from "react-native";
+import { HeaderBackButton } from "@react-navigation/elements";
+import { Feather, AntDesign, MaterialIcons } from "@expo/vector-icons";
+
 import PostsScreen from "./PostsScreen";
 import CreatePostsScreen from "./CreatePostsScreen";
 import ProfileScreen from "./ProfileScreen";
-import { useEffect } from "react";
-import { createStackNavigator } from "@react-navigation/stack";
-import { NavigationContainer } from "@react-navigation/native";
-// import { HeaderBackButton } from "react-navigation/stack";
-import { HeaderBackButton } from "@react-navigation/elements";
+
 const TabStack = createBottomTabNavigator();
-const Stack = createStackNavigator();
 
 const Home = ({ navigation }) => {
+  console.log("====================================");
+  console.log(navigation.getId());
+  console.log("====================================");
   return (
-    // <PostsScreen />
     <View style={styles.container}>
       <TabStack.Navigator
         screenOptions={{
           tabBarShowLabel: false,
           tabBarStyle: {
             paddingHorizontal: 39,
-            height: 83,
-            paddingBottom: 11,
+            height: 71,
           },
+          tabBarActiveBackgroundColor: "none",
         }}
       >
         <TabStack.Screen
-          name="Публікації "
+          name="Публікації"
+          id="Публікації"
           component={PostsScreen}
           options={{
             headerRight: () => (
-              <Image
-                source={require("../assets/images/log-out.png")}
-                style={{
-                  width: 24,
-                  height: 24,
-                  marginRight: 10,
+              <HeaderBackButton
+                onPress={() => {
+                  navigation.navigate("Home");
+                }}
+                backImage={(focused, size, color) => {
+                  return (
+                    <View>
+                      <MaterialIcons name="logout" size={24} color="#BDBDBD" />
+                    </View>
+                  );
                 }}
               />
             ),
             headerStyle: {
               borderBottomColor: "#E8E8E8",
+              borderBottomWidth: 2,
               height: 88,
-              // marginBottom: 32,
             },
             headerTitleAlign: "center",
 
             tabBarIcon: (focused, size, color) => {
               return (
-                <Image
-                  source={require("../assets/images/posts.png")}
-                  style={{
-                    width: 24,
-                    height: 24,
-                  }}
-                />
+                <Feather name="grid" size={24} color="rgba(33, 33, 33, 0.80)" />
               );
             },
           }}
         />
 
         <TabStack.Screen
-          name="Створити публікацію "
+          name="Створити публікацію"
+          id="Створити публікацію"
           component={CreatePostsScreen}
           options={{
+            headerStyle: {
+              borderBottomColor: "#E8E8E8",
+              borderBottomWidth: 2,
+              height: 88,
+            },
             headerLeft: () => (
               <HeaderBackButton
                 onPress={() => {
-                  console.log("clicked");
                   navigation.goBack();
                 }}
               />
@@ -77,14 +81,8 @@ const Home = ({ navigation }) => {
             headerTitleAlign: "center",
             tabBarIcon: (focused, size, color) => {
               return (
-                <View style={styles.createBtn}>
-                  <Image
-                    source={require("../assets/images/create.png")}
-                    style={{
-                      width: 13,
-                      height: 13,
-                    }}
-                  />
+                <View style={styles.activeBtn}>
+                  <AntDesign name="plus" size={24} color="#FFFFFF" />
                 </View>
               );
             },
@@ -93,6 +91,7 @@ const Home = ({ navigation }) => {
 
         <TabStack.Screen
           name="Профіль"
+          id="Профіль"
           component={ProfileScreen}
           options={{
             headerLeft: () => (
@@ -103,20 +102,23 @@ const Home = ({ navigation }) => {
                 }}
               />
             ),
-            // headerLeft: true,
-            headerShown: true,
-            title: "Профіль",
-            tabBarStyle: { display: "none" },
+            headerShown: false,
+            // tabBarStyle: { display: "none" },
             headerTitleAlign: "center",
             tabBarIcon: (focused, size, color) => {
+              // if (focused) {
+
+              //   return (
+              //     <Feather
+              //       name="user"
+              //       style={styles.activeBtn}
+              //       size={24}
+              //       // color="rgba(33, 33, 33, 0.80)"
+              //     />
+              //   );
+              // }
               return (
-                <Image
-                  source={require("../assets/images/profile.png")}
-                  style={{
-                    width: 24,
-                    height: 24,
-                  }}
-                />
+                <Feather name="user" size={24} color="rgba(33, 33, 33, 0.80)" />
               );
             },
           }}
@@ -128,56 +130,18 @@ const Home = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    // position: "relative",
     flex: 1,
-    // flexDirection: "column",
     backgroundColor: "#ffffff",
   },
-  createBtn: {
+  activeBtn: {
     borderRadius: 20,
+    width: 70,
+    height: 40,
+    color: "#fff",
     backgroundColor: "#FF6C00",
-    paddingHorizontal: 28.5,
-    paddingVertical: 13.5,
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
-
-// const styles = StyleSheet.create({
-//   container: {
-//     position: "relative",
-//     flex: 1,
-//     flexDirection: "column",
-//     backgroundColor: "#fff",
-//   },
-//   header: {
-//     flexDirection: "row",
-//     borderWidth: 1,
-//     height: 88,
-//     borderColor: "#fff",
-//     alignItems: "flex-end",
-//     justifyContent: "flex-end",
-//     borderBottomColor: "#BDBDBD",
-//     paddingBottom: 11,
-//     marginBottom: 32,
-//   },
-//   headerText: {
-//     fontFamily: "Roboto-Medium",
-//     fontSize: 17,
-//     lineHeight: 22,
-//   },
-//   logOutImg: {
-//     marginLeft: 100,
-//     marginRight: 10,
-//   },
-//   footer: {
-//     position: "absolute",
-//     left: 0,
-//     bottom: 0,
-//     height: 83,
-//     width: "100%",
-//     borderWidth: 1,
-//     borderColor: "#fff",
-//     borderTopColor: "#BDBDBD",
-//   },
-// });
 
 export default Home;

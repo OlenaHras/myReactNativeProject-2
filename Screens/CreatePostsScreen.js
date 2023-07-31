@@ -9,6 +9,7 @@ import {
   KeyboardAvoidingView,
 } from "react-native";
 import { useState } from "react";
+import { Feather, FontAwesome, SimpleLineIcons } from "@expo/vector-icons";
 // const TabStack = createBottomTabNavigator();
 
 const initialState = {
@@ -39,7 +40,8 @@ const CreatePostsScreen = () => {
     <View style={styles.container}>
       <View style={styles.addContainer}>
         <View style={styles.addIconWrapper}>
-          <Image source={require("../assets/images/camera.png")} />
+          <FontAwesome name="camera" size={24} color="#BDBDBD" />
+          {/* <Image source={require("../assets/images/camera.png")} /> */}
         </View>
       </View>
       <Text style={styles.addPictureTitle}>Завантажте фото</Text>
@@ -52,39 +54,50 @@ const CreatePostsScreen = () => {
         <KeyboardAvoidingView
           behavior={Platform.OS == "ios" ? "padding" : "height"}
         >
-          <TextInput
-            style={{
-              ...styles.input,
-              borderBottomColor: isFocused === "title" ? "#FF6C00" : "#E8E8E8",
-            }}
-            placeholder="Назва..."
-            placeholderTextColor="#BDBDBD"
-            value={state.title}
-            onFocus={() => onFocus("title")}
-            onBlur={() => onBlur("title")}
-            onChangeText={(value) =>
-              setstate((prevState) => ({ ...prevState, title: value }))
-            }
-          />
-          <TextInput
-            style={{
-              ...styles.input,
-              marginBottom: 32,
-              borderBottomColor:
-                isFocused === "location" ? "#FF6C00" : "#E8E8E8",
-            }}
-            placeholder="Місцевість......"
-            placeholderTextColor="#BDBDBD"
-            value={state.location}
-            onFocus={() => onFocus("location")}
-            onBlur={() => onBlur("location")}
-            onChangeText={(value) =>
-              setstate((prevState) => ({
-                ...prevState,
-                location: value,
-              }))
-            }
-          />
+          <View style={styles.sectionStyle}>
+            <TextInput
+              style={{
+                ...styles.input,
+                borderBottomColor:
+                  isFocused === "title" ? "#FF6C00" : "#E8E8E8",
+              }}
+              placeholder="Назва..."
+              placeholderTextColor="#BDBDBD"
+              value={state.title}
+              onFocus={() => onFocus("title")}
+              onBlur={() => onBlur("title")}
+              onChangeText={(value) =>
+                setstate((prevState) => ({ ...prevState, title: value }))
+              }
+            />
+          </View>
+          <View style={styles.sectionStyle}>
+            <SimpleLineIcons name="location-pin" size={24} color="#BDBDBD" />
+            {/* <Image
+              style={styles.imageStyle}
+              source={require("../assets/images/map-pin.png")}
+            /> */}
+            <TextInput
+              style={{
+                ...styles.input,
+                // marginBottom: 32,
+                borderBottomColor:
+                  isFocused === "location" ? "#FF6C00" : "#E8E8E8",
+              }}
+              inlineImageLeft="../assets/images/map-pin.svg"
+              placeholder="Місцевість..."
+              placeholderTextColor="#BDBDBD"
+              value={state.location}
+              onFocus={() => onFocus("location")}
+              onBlur={() => onBlur("location")}
+              onChangeText={(value) =>
+                setstate((prevState) => ({
+                  ...prevState,
+                  location: value,
+                }))
+              }
+            />
+          </View>
         </KeyboardAvoidingView>
       </View>
       <TouchableOpacity
@@ -92,7 +105,7 @@ const CreatePostsScreen = () => {
         style={styles.button}
         activeOpacity={0.8}
       >
-        <Text style={styles.btnTitle}>Опубліковати</Text>
+        <Text style={styles.btnTitle}>Опублікувати</Text>
       </TouchableOpacity>
       <View style={styles.footer}>
         <TouchableOpacity
@@ -100,7 +113,8 @@ const CreatePostsScreen = () => {
           onPress={() => navigation.navigate("Registration")}
           activeOpacity={0.6}
         >
-          <Image source={require("../assets/images/trash.png")} />
+          <Feather name="trash-2" size={24} color="#BDBDBD" />
+          {/* <Image source={require("../assets/images/trash.png")} /> */}
         </TouchableOpacity>
       </View>
     </View>
@@ -112,7 +126,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     paddingHorizontal: 16,
-    // marginTop: 32,
   },
   addContainer: {
     width: "100%",
@@ -122,6 +135,7 @@ const styles = StyleSheet.create({
     borderColor: "#E8E8E8",
     borderRadius: 8,
     marginBottom: 8,
+    marginTop: 32,
     justifyContent: "center",
     alignItems: "center",
   },
@@ -139,14 +153,36 @@ const styles = StyleSheet.create({
     color: "#BDBDBD",
     marginBottom: 30,
   },
-  input: {
+  sectionStyle: {
+    flexDirection: "row",
+    // justifyContent: "center",
+    alignItems: "center",
+    // backgroundColor: "#fff",
     borderWidth: 1,
+    borderBottomColor: "#E8E8E8",
     borderColor: "#fff",
+    height: 50,
+    width: "100%",
+    // borderRadius: 5,
+    marginBottom: 15,
+  },
+  input: {
+    // borderWidth: 1,
+    // borderColor: "#fff",
+
     fontSize: 16,
     lineHeight: 19,
     height: 50,
-    paddingHorizontal: 16,
-    marginBottom: 16,
+    paddingVertical: 16,
+    // marginBottom: 15,
+  },
+  imageStyle: {
+    padding: 10,
+    margin: 5,
+    height: 25,
+    width: 25,
+    resizeMode: "stretch",
+    alignItems: "center",
   },
   button: {
     backgroundColor: "#F6F6F6",

@@ -34,14 +34,13 @@ const LoginScreen = ({ navigation }) => {
 
   const handleButtonClick = () => {
     setIsShowKeyboard(false);
-    setstate(initialState);
     console.log(state);
     Keyboard.dismiss();
+    setstate(initialState);
     navigation.navigate("Home");
   };
 
   useEffect(() => {
-    console.log(screenHeight + 20);
     const onChange = () => {
       setIsShowKeyboard(false);
       setScreenHeight(Dimensions.get("window").height);
@@ -130,16 +129,19 @@ const LoginScreen = ({ navigation }) => {
                 <Text style={styles.btnTitle}>Увійти</Text>
               </TouchableOpacity>
 
-              <TouchableOpacity
-                onPress={() => navigation.navigate("Registration")}
-                activeOpacity={0.6}
-              >
+              <View>
                 <Text
-                  style={{ ...styles.linkToLogIn, marginBottom: orientation }}
+                  style={{ ...styles.textToLogIn, marginBottom: orientation }}
                 >
-                  Вже є акаунт? Увійти
+                  Немає акаунту?{" "}
+                  <Text
+                    onPress={() => navigation.navigate("Registration")}
+                    style={styles.linkToLogIn}
+                  >
+                    Зареєструватися
+                  </Text>
                 </Text>
-              </TouchableOpacity>
+              </View>
             </View>
           </View>
         </ImageBackground>
@@ -196,12 +198,15 @@ const styles = StyleSheet.create({
     fontFamily: "Roboto-Regular",
     lineHeight: 19,
   },
-  linkToLogIn: {
+  textToLogIn: {
     color: "#1B4371",
     fontSize: 16,
     fontFamily: "Roboto-Regular",
     lineHeight: 19,
     textAlign: "center",
+  },
+  linkToLogIn: {
+    textDecorationLine: "underline",
   },
 });
 

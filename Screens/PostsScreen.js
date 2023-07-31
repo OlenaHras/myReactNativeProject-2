@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
   pageWrapper: {
     backgroundColor: "#fff",
     width: "100%",
-    // borderTopColor: "#E8E8E8",
+    height: "100%",
   },
   container: {
     flexDirection: "row",

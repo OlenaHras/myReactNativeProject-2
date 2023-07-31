@@ -1,6 +1,10 @@
-import { Text } from "react-native";
+import { Text, Image, View } from "react-native";
 
 const CommentsScreen = () => {
-  return <Text>CommentsScreenPage</Text>;
+  return (
+    <View>
+      <Image />
+    </View>
+  );
 };
 export default CommentsScreen;

@@ -54,25 +54,7 @@ export default function App() {
             name="Home"
             component={Home}
             options={{
-              // headerTitle: "Публикации",
-              // headerBackTitleVisible: false,
               headerShown: false,
-              // headerLeft: () => null,
-              // headerRight: () => (
-              //   <Image
-              //     source={require("./assets/images/log-out.png")}
-              //     style={{
-              //       width: 24,
-              //       height: 24,
-              //       marginRight: 10,
-              //     }}
-              //   />
-              //   // <Button
-              //   //   onPress={() => alert("This is a button!")}
-              //   //   title=""
-              //   //   color="#fff"
-              //   // />
-              // ),
             }}
           />
         </MainStack.Navigator>

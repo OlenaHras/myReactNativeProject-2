@@ -16,6 +16,7 @@ import {
   Button,
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
+import { MaterialIcons } from "@expo/vector-icons";
 
 const initialState = {
   login: "",
@@ -76,12 +77,12 @@ const RegistrationScreen = ({ navigation }) => {
         >
           <View style={styles.screenWrapper}>
             <View style={styles.avatar}>
-              <View style={styles.addButton}>
-                <Image
-                  source={require("../assets/images/addButton.png")}
-                  style={{ width: 13, height: 13 }}
-                />
-              </View>
+              <MaterialIcons
+                name="add-circle-outline"
+                size={24}
+                color="#FF6C00"
+                style={styles.addButton}
+              />
             </View>
             <Text style={styles.headerTitle}>Реєстрація</Text>
             <View style={{ ...styles.form, width: screenWidth }}>
@@ -160,12 +161,17 @@ const RegistrationScreen = ({ navigation }) => {
                 <Text style={styles.btnTitle}>Зареєстуватися</Text>
               </TouchableOpacity>
 
-              <TouchableOpacity
-                onPress={() => navigation.navigate("Login")}
-                activeOpacity={0.6}
-              >
-                <Text style={styles.linkToLogIn}>Вже є акаунт? Увійти </Text>
-              </TouchableOpacity>
+              <View>
+                <Text style={styles.textToLogIn}>
+                  Вже є акаунт?{" "}
+                  <Text
+                    onPress={() => navigation.navigate("Login")}
+                    style={styles.linkToLogIn}
+                  >
+                    Увійти
+                  </Text>
+                </Text>
+              </View>
             </View>
           </View>
         </ImageBackground>
@@ -201,16 +207,9 @@ const styles = StyleSheet.create({
     borderRadius: 16,
   },
   addButton: {
-    width: 25,
-    height: 25,
-    borderColor: "#FF6C00",
-    borderRadius: 50,
-    borderWidth: 1,
     position: "relative",
     right: -105,
     bottom: -80,
-    alignItems: "center",
-    justifyContent: "center",
   },
 
   headerTitle: {
@@ -244,13 +243,16 @@ const styles = StyleSheet.create({
     fontFamily: "Roboto-Regular",
     lineHeight: 19,
   },
-  linkToLogIn: {
+  textToLogIn: {
     color: "#1B4371",
     fontSize: 16,
     fontFamily: "Roboto-Regular",
     lineHeight: 19,
     textAlign: "center",
-    marginBottom: 45,
+    marginBottom: 66,
+  },
+  linkToLogIn: {
+    textDecorationLine: "underline",
   },
 });
 

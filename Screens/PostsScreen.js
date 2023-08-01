@@ -1,10 +1,7 @@
 import { StyleSheet, Image, Text, View } from "react-native";
-// import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-// import PostsScreen from "./PostsScreen";
-// import Home from "./Home";
-// import CreatePostsScreen from "./CreatePostsScreen";
-// import ProfileScreen from "./ProfileScreen";
-// const TabStack = createBottomTabNavigator();
+
+import PostList from "../components/PostsList/PostsList";
+
 const PostsScreen = () => {
   return (
     <View style={styles.pageWrapper}>
@@ -18,6 +15,7 @@ const PostsScreen = () => {
           <Text style={styles.email}>email@example.com</Text>
         </View>
       </View>
+      <PostList />
     </View>
   );
 };

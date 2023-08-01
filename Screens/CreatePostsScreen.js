@@ -1,4 +1,4 @@
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+// import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import {
   View,
   StyleSheet,
@@ -10,7 +10,6 @@ import {
 } from "react-native";
 import { useState } from "react";
 import { Feather, FontAwesome, SimpleLineIcons } from "@expo/vector-icons";
-// const TabStack = createBottomTabNavigator();
 
 const initialState = {
   title: "",
@@ -18,16 +17,15 @@ const initialState = {
 };
 
 const CreatePostsScreen = () => {
-  const [state, setstate] = useState(initialState);
+  const [state, setState] = useState(initialState);
   const [isFocused, setIsFocused] = useState("");
 
   const handleButtonClick = () => {
-    setstate(initialState);
+    setState(initialState);
     console.log(state);
   };
 
   const onFocus = (inputName) => {
-    // setIsShowKeyboard(true);
     setIsFocused(inputName);
   };
 
@@ -41,16 +39,10 @@ const CreatePostsScreen = () => {
       <View style={styles.addContainer}>
         <View style={styles.addIconWrapper}>
           <FontAwesome name="camera" size={24} color="#BDBDBD" />
-          {/* <Image source={require("../assets/images/camera.png")} /> */}
         </View>
       </View>
       <Text style={styles.addPictureTitle}>Завантажте фото</Text>
-      <View
-      // style={{
-      //   marginBottom:
-      //     screenWidth > screenHeight ? 24 : isShowKeyboard ? 93 : 43,
-      // }}
-      >
+      <View>
         <KeyboardAvoidingView
           behavior={Platform.OS == "ios" ? "padding" : "height"}
         >
@@ -67,20 +59,15 @@ const CreatePostsScreen = () => {
               onFocus={() => onFocus("title")}
               onBlur={() => onBlur("title")}
               onChangeText={(value) =>
-                setstate((prevState) => ({ ...prevState, title: value }))
+                setState((prevState) => ({ ...prevState, title: value }))
               }
             />
           </View>
           <View style={styles.sectionStyle}>
             <SimpleLineIcons name="location-pin" size={24} color="#BDBDBD" />
-            {/* <Image
-              style={styles.imageStyle}
-              source={require("../assets/images/map-pin.png")}
-            /> */}
             <TextInput
               style={{
                 ...styles.input,
-                // marginBottom: 32,
                 borderBottomColor:
                   isFocused === "location" ? "#FF6C00" : "#E8E8E8",
               }}
@@ -91,7 +78,7 @@ const CreatePostsScreen = () => {
               onFocus={() => onFocus("location")}
               onBlur={() => onBlur("location")}
               onChangeText={(value) =>
-                setstate((prevState) => ({
+                setState((prevState) => ({
                   ...prevState,
                   location: value,
                 }))
@@ -102,19 +89,29 @@ const CreatePostsScreen = () => {
       </View>
       <TouchableOpacity
         onPress={handleButtonClick}
-        style={styles.button}
+        style={{
+          ...styles.button,
+          backgroundColor:
+            state.location && state.title ? "#FF6C00" : "#F6F6F6",
+        }}
         activeOpacity={0.8}
       >
-        <Text style={styles.btnTitle}>Опублікувати</Text>
+        <Text
+          style={{
+            ...styles.btnTitle,
+            color: state.location && state.title ? "#FFFFFF" : "#BDBDBD",
+          }}
+        >
+          Опублікувати
+        </Text>
       </TouchableOpacity>
       <View style={styles.footer}>
         <TouchableOpacity
           style={styles.deleteButton}
-          onPress={() => navigation.navigate("Registration")}
+          onPress={() => setState(initialState)}
           activeOpacity={0.6}
         >
           <Feather name="trash-2" size={24} color="#BDBDBD" />
-          {/* <Image source={require("../assets/images/trash.png")} /> */}
         </TouchableOpacity>
       </View>
     </View>
@@ -155,37 +152,23 @@ const styles = StyleSheet.create({
   },
   sectionStyle: {
     flexDirection: "row",
-    // justifyContent: "center",
     alignItems: "center",
-    // backgroundColor: "#fff",
     borderWidth: 1,
     borderBottomColor: "#E8E8E8",
     borderColor: "#fff",
     height: 50,
     width: "100%",
-    // borderRadius: 5,
     marginBottom: 15,
   },
   input: {
-    // borderWidth: 1,
-    // borderColor: "#fff",
-
     fontSize: 16,
     lineHeight: 19,
     height: 50,
+    width: "100%",
     paddingVertical: 16,
-    // marginBottom: 15,
   },
-  imageStyle: {
-    padding: 10,
-    margin: 5,
-    height: 25,
-    width: 25,
-    resizeMode: "stretch",
-    alignItems: "center",
-  },
+
   button: {
-    backgroundColor: "#F6F6F6",
     borderRadius: 100,
     height: 51,
     alignItems: "center",
@@ -193,13 +176,11 @@ const styles = StyleSheet.create({
     marginBottom: 120,
   },
   btnTitle: {
-    color: "#BDBDBD",
     fontSize: 16,
     fontFamily: "Roboto-Regular",
     lineHeight: 19,
   },
   deleteButton: {
-    // borderWidth: 1,
     backgroundColor: "#F6F6F6",
     borderRadius: 20,
     height: 40,
@@ -209,16 +190,11 @@ const styles = StyleSheet.create({
     marginBottom: 22,
   },
   footer: {
-    // position: "absolute",
-    // left: 0,
-    // bottom: 0,
     alignItems: "center",
     justifyContent: "center",
-    // height: 83,
     width: "100%",
     borderWidth: 1,
     borderColor: "#fff",
-    // borderTopColor: "#BDBDBD",
   },
 });
 

@@ -10,9 +10,6 @@ import ProfileScreen from "./ProfileScreen";
 const TabStack = createBottomTabNavigator();
 
 const Home = ({ navigation }) => {
-  console.log("====================================");
-  console.log(navigation.getId());
-  console.log("====================================");
   return (
     <View style={styles.container}>
       <TabStack.Navigator
@@ -33,7 +30,7 @@ const Home = ({ navigation }) => {
             headerRight: () => (
               <HeaderBackButton
                 onPress={() => {
-                  navigation.navigate("Home");
+                  navigation.navigate("Login");
                 }}
                 backImage={(focused, size, color) => {
                   return (
@@ -72,7 +69,8 @@ const Home = ({ navigation }) => {
             headerLeft: () => (
               <HeaderBackButton
                 onPress={() => {
-                  navigation.goBack();
+                  navigation.navigate("Публікації");
+                  // navigation.goBack();
                 }}
               />
             ),

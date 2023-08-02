@@ -5,6 +5,7 @@ import {
   Text,
   Image,
   SafeAreaView,
+  TouchableOpacity,
 } from "react-native";
 import { Feather, SimpleLineIcons } from "@expo/vector-icons";
 
@@ -25,7 +26,7 @@ const example = [
   },
 ];
 
-const PostList = () => {
+const PostList = ({ navigation }) => {
   return (
     <View style={styles.listWrapper}>
       <SafeAreaView>
@@ -36,10 +37,16 @@ const PostList = () => {
               <Image source={item.img} />
               <Text style={styles.postTitle}>{item.title}</Text>
               <View style={styles.postInfo}>
-                <View style={styles.postComments}>
-                  <Feather name="message-circle" size={24} color="#BDBDBD" />
-                  <Text>{item.comments}</Text>
-                </View>
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.navigate("Коментарі");
+                  }}
+                >
+                  <View style={styles.postComments}>
+                    <Feather name="message-circle" size={24} color="#BDBDBD" />
+                    <Text>{item.comments}</Text>
+                  </View>
+                </TouchableOpacity>
                 <View style={styles.postComments}>
                   <SimpleLineIcons
                     name="location-pin"

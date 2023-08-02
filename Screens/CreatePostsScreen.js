@@ -1,8 +1,6 @@
-// import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import {
   View,
   StyleSheet,
-  Image,
   Text,
   TextInput,
   TouchableOpacity,
@@ -71,7 +69,6 @@ const CreatePostsScreen = () => {
                 borderBottomColor:
                   isFocused === "location" ? "#FF6C00" : "#E8E8E8",
               }}
-              inlineImageLeft="../assets/images/map-pin.svg"
               placeholder="Місцевість..."
               placeholderTextColor="#BDBDBD"
               value={state.location}

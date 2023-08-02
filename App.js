@@ -1,20 +1,19 @@
 import "react-native-gesture-handler";
-import { useState, useEffect, useCallback } from "react";
+import { useEffect, useCallback } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { StyleSheet, View, Button, Image } from "react-native";
+import { StyleSheet, View } from "react-native";
 import * as SplashScreen from "expo-splash-screen";
 import { useFonts } from "expo-font";
-// import { useRoute } from "./router";
+
 import RegistrationScreen from "./Screens/RegistrationScreen";
 import LoginScreen from "./Screens/LoginScreen";
-import Home, { HomeTabs } from "./Screens/Home";
+import Home from "./Screens/Home";
+import CommentsScreen from "./Screens/CommentsScreen";
 
 const MainStack = createStackNavigator();
 
 export default function App() {
-  // const routing = useRoute(true);
-
   const [fontsLoaded] = useFonts({
     "Roboto-Regular": require("./assets/Fonts/Roboto-Regular.ttf"),
     "Roboto-Medium": require("./assets/Fonts/Roboto-Medium.ttf"),
@@ -57,17 +56,16 @@ export default function App() {
               headerShown: false,
             }}
           />
+          <MainStack.Screen
+            name="Коментарі"
+            component={CommentsScreen}
+            options={{
+              headerTitleAlign: "center",
+              cardStyle: { backgroundColor: "#FFFFFF" },
+            }}
+          />
         </MainStack.Navigator>
       </NavigationContainer>
-
-      {/* <NavigationContainer> */}
-      {/* {routing} */}
-      {/* <TabStack.Navigator>
-          <TabStack.Screen name="Posts" component={PostsScreen} />
-          <TabStack.Screen name="Create" component={CreatePostsScreen} />
-          <TabStack.Screen name="Profile" component={ProfileScreen} />
-        </TabStack.Navigator> */}
-      {/* </NavigationContainer> */}
     </View>
   );
 }

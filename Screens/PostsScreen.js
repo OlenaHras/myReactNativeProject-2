@@ -2,7 +2,7 @@ import { StyleSheet, Image, Text, View } from "react-native";
 
 import PostList from "../components/PostsList/PostsList";
 
-const PostsScreen = () => {
+const PostsScreen = ({ navigation }) => {
   return (
     <View style={styles.pageWrapper}>
       <View style={styles.container}>
@@ -15,7 +15,7 @@ const PostsScreen = () => {
           <Text style={styles.email}>email@example.com</Text>
         </View>
       </View>
-      <PostList />
+      <PostList navigation={navigation} />
     </View>
   );
 };

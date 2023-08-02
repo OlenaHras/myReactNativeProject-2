@@ -1,5 +1,5 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { View, StyleSheet, Image, Text } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { HeaderBackButton } from "@react-navigation/elements";
 import { Feather, AntDesign, MaterialIcons } from "@expo/vector-icons";
 
@@ -70,7 +70,6 @@ const Home = ({ navigation }) => {
               <HeaderBackButton
                 onPress={() => {
                   navigation.navigate("Публікації");
-                  // navigation.goBack();
                 }}
               />
             ),
@@ -101,20 +100,8 @@ const Home = ({ navigation }) => {
               />
             ),
             headerShown: false,
-            // tabBarStyle: { display: "none" },
             headerTitleAlign: "center",
             tabBarIcon: (focused, size, color) => {
-              // if (focused) {
-
-              //   return (
-              //     <Feather
-              //       name="user"
-              //       style={styles.activeBtn}
-              //       size={24}
-              //       // color="rgba(33, 33, 33, 0.80)"
-              //     />
-              //   );
-              // }
               return (
                 <Feather name="user" size={24} color="rgba(33, 33, 33, 0.80)" />
               );

@@ -11,7 +11,6 @@ const PostsScreen = ({ navigation, route }) => {
       setPosts((prev) => [...prev, route.params]);
     }
   }, [route.params]);
-  console.log(route.params);
   return (
     <View style={styles.pageWrapper}>
       <View style={styles.container}>

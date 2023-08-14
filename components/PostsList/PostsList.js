@@ -7,7 +7,7 @@ import {
   SafeAreaView,
   TouchableOpacity,
 } from "react-native";
-import { Feather, SimpleLineIcons } from "@expo/vector-icons";
+import { Feather, SimpleLineIcons, AntDesign } from "@expo/vector-icons";
 
 const PostList = ({ navigation, posts }) => {
   return (
@@ -23,16 +23,28 @@ const PostList = ({ navigation, posts }) => {
               />
               <Text style={styles.postTitle}>{item.state.title}</Text>
               <View style={styles.postInfo}>
-                <TouchableOpacity
-                  onPress={() => {
-                    navigation.navigate("Коментарі", item.state.photo);
-                  }}
-                >
-                  <View style={styles.postComments}>
-                    <Feather name="message-circle" size={24} color="#BDBDBD" />
-                    {/* <Text>{item.comments}</Text> */}
-                  </View>
-                </TouchableOpacity>
+                <View style={styles.rating}>
+                  <TouchableOpacity
+                    onPress={() => {
+                      navigation.navigate("Коментарі", item.state.photo);
+                    }}
+                  >
+                    <View style={{ ...styles.postComments, marginRight: 24 }}>
+                      <Feather
+                        name="message-circle"
+                        size={24}
+                        color="#BDBDBD"
+                      />
+                      <Text>0</Text>
+                    </View>
+                  </TouchableOpacity>
+                  <TouchableOpacity>
+                    <View style={styles.postComments}>
+                      <AntDesign name="like2" size={24} color="#BDBDBD" />
+                      <Text>0</Text>
+                    </View>
+                  </TouchableOpacity>
+                </View>
                 <TouchableOpacity
                   onPress={() => {
                     navigation.navigate("Мапа", item.coords);
@@ -67,7 +79,6 @@ const styles = StyleSheet.create({
     flex: 1,
     marginBottom: 34,
   },
-  postImg: {},
   postTitle: {
     marginVertical: 8,
   },
@@ -80,6 +91,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+  },
+  rating: {
+    flexDirection: "row",
   },
 });
 

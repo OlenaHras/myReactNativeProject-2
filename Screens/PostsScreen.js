@@ -1,8 +1,17 @@
 import { StyleSheet, Image, Text, View } from "react-native";
+import { useEffect, useState } from "react";
 
 import PostList from "../components/PostsList/PostsList";
 
-const PostsScreen = ({ navigation }) => {
+const PostsScreen = ({ navigation, route }) => {
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    if (route.params) {
+      setPosts((prev) => [...prev, route.params]);
+    }
+  }, [route.params]);
+  console.log(route.params);
   return (
     <View style={styles.pageWrapper}>
       <View style={styles.container}>
@@ -15,7 +24,7 @@ const PostsScreen = ({ navigation }) => {
           <Text style={styles.email}>email@example.com</Text>
         </View>
       </View>
-      <PostList navigation={navigation} />
+      <PostList navigation={navigation} posts={posts} />
     </View>
   );
 };

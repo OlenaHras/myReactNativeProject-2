@@ -2,25 +2,41 @@ import {
   View,
   StyleSheet,
   Text,
+  Image,
   TextInput,
   TouchableOpacity,
   KeyboardAvoidingView,
 } from "react-native";
-import { useState } from "react";
+import { Camera } from "expo-camera";
+import { useState, useEffect } from "react";
+import * as Location from "expo-location";
 import { Feather, FontAwesome, SimpleLineIcons } from "@expo/vector-icons";
 
 const initialState = {
+  photo: null,
   title: "",
-  location: "",
+  locality: "",
 };
 
-const CreatePostsScreen = () => {
+const CreatePostsScreen = ({ navigation }) => {
   const [state, setState] = useState(initialState);
   const [isFocused, setIsFocused] = useState("");
+  const [camera, setCamera] = useState(null);
 
-  const handleButtonClick = () => {
+  const handleButtonClick = async () => {
+    let location = await Location.getCurrentPositionAsync({});
+    const coords = {
+      latitude: location.coords.latitude,
+      longitude: location.coords.longitude,
+    };
+    setState((prevState) => ({
+      ...prevState,
+      location: coords,
+    }));
+    console.log("state:", state);
+    console.log("location:", coords);
+    navigation.navigate("Публікації", { state, coords });
     setState(initialState);
-    console.log(state);
   };
 
   const onFocus = (inputName) => {
@@ -32,13 +48,32 @@ const CreatePostsScreen = () => {
       setIsFocused("");
     }
   };
+
+  const takePhoto = async () => {
+    const photo = await camera.takePictureAsync();
+    setState((prevState) => ({
+      ...prevState,
+      photo: photo.uri,
+    }));
+  };
   return (
     <View style={styles.container}>
-      <View style={styles.addContainer}>
-        <View style={styles.addIconWrapper}>
-          <FontAwesome name="camera" size={24} color="#BDBDBD" />
+      {state.photo ? (
+        <View style={styles.addContainer}>
+          <Image
+            source={{ uri: state.photo }}
+            style={{ width: "100%", height: 240 }}
+          />
         </View>
-      </View>
+      ) : (
+        <Camera style={styles.addContainer} ref={setCamera}>
+          <TouchableOpacity onPress={takePhoto}>
+            <View style={styles.addIconWrapper}>
+              <FontAwesome name="camera" size={24} color="#BDBDBD" />
+            </View>
+          </TouchableOpacity>
+        </Camera>
+      )}
       <Text style={styles.addPictureTitle}>Завантажте фото</Text>
       <View>
         <KeyboardAvoidingView
@@ -67,17 +102,17 @@ const CreatePostsScreen = () => {
               style={{
                 ...styles.input,
                 borderBottomColor:
-                  isFocused === "location" ? "#FF6C00" : "#E8E8E8",
+                  isFocused === "locality" ? "#FF6C00" : "#E8E8E8",
               }}
               placeholder="Місцевість..."
               placeholderTextColor="#BDBDBD"
-              value={state.location}
-              onFocus={() => onFocus("location")}
-              onBlur={() => onBlur("location")}
+              value={state.locality}
+              onFocus={() => onFocus("locality")}
+              onBlur={() => onBlur("locality")}
               onChangeText={(value) =>
                 setState((prevState) => ({
                   ...prevState,
-                  location: value,
+                  locality: value,
                 }))
               }
             />
@@ -89,14 +124,14 @@ const CreatePostsScreen = () => {
         style={{
           ...styles.button,
           backgroundColor:
-            state.location && state.title ? "#FF6C00" : "#F6F6F6",
+            state.locality && state.title ? "#FF6C00" : "#F6F6F6",
         }}
         activeOpacity={0.8}
       >
         <Text
           style={{
             ...styles.btnTitle,
-            color: state.location && state.title ? "#FFFFFF" : "#BDBDBD",
+            color: state.locality && state.title ? "#FFFFFF" : "#BDBDBD",
           }}
         >
           Опублікувати

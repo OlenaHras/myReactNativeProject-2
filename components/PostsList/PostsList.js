@@ -9,56 +9,48 @@ import {
 } from "react-native";
 import { Feather, SimpleLineIcons } from "@expo/vector-icons";
 
-const example = [
-  {
-    id: "1",
-    img: require("../../assets/images/testPostImg.png"),
-    title: "Ліс",
-    location: "Ivano-Frankivsk Region, Ukraine",
-    comments: 0,
-  },
-  {
-    id: "2",
-    img: require("../../assets/images/testPostImg.png"),
-    title: "Гори",
-    location: "Ukraine",
-    comments: 0,
-  },
-];
-
-const PostList = ({ navigation }) => {
+const PostList = ({ navigation, posts }) => {
   return (
     <View style={styles.listWrapper}>
       <SafeAreaView>
         <FlatList
-          data={example}
+          data={posts}
           renderItem={({ item }) => (
             <View style={styles.postWrapper}>
-              <Image source={item.img} />
-              <Text style={styles.postTitle}>{item.title}</Text>
+              <Image
+                source={{ uri: item.state.photo }}
+                style={{ width: 343, height: 240 }}
+              />
+              <Text style={styles.postTitle}>{item.state.title}</Text>
               <View style={styles.postInfo}>
                 <TouchableOpacity
                   onPress={() => {
-                    navigation.navigate("Коментарі");
+                    navigation.navigate("Коментарі", item.state.photo);
                   }}
                 >
                   <View style={styles.postComments}>
                     <Feather name="message-circle" size={24} color="#BDBDBD" />
-                    <Text>{item.comments}</Text>
+                    {/* <Text>{item.comments}</Text> */}
                   </View>
                 </TouchableOpacity>
-                <View style={styles.postComments}>
-                  <SimpleLineIcons
-                    name="location-pin"
-                    size={24}
-                    color="#BDBDBD"
-                  />
-                  <Text>{item.location}</Text>
-                </View>
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.navigate("Мапа", item.coords);
+                  }}
+                >
+                  <View style={styles.postComments}>
+                    <SimpleLineIcons
+                      name="location-pin"
+                      size={24}
+                      color="#BDBDBD"
+                    />
+                    <Text>{item.state.locality}</Text>
+                  </View>
+                </TouchableOpacity>
               </View>
             </View>
           )}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item, i) => i.toString()}
         />
       </SafeAreaView>
     </View>

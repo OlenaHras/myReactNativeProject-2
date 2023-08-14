@@ -10,6 +10,7 @@ import RegistrationScreen from "./Screens/RegistrationScreen";
 import LoginScreen from "./Screens/LoginScreen";
 import Home from "./Screens/Home";
 import CommentsScreen from "./Screens/CommentsScreen";
+import MapScreen from "./Screens/MapScreen";
 
 const MainStack = createStackNavigator();
 
@@ -59,6 +60,14 @@ export default function App() {
           <MainStack.Screen
             name="Коментарі"
             component={CommentsScreen}
+            options={{
+              headerTitleAlign: "center",
+              cardStyle: { backgroundColor: "#FFFFFF" },
+            }}
+          />
+          <MainStack.Screen
+            name="Мапа"
+            component={MapScreen}
             options={{
               headerTitleAlign: "center",
               cardStyle: { backgroundColor: "#FFFFFF" },

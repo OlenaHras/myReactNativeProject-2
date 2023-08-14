@@ -9,7 +9,7 @@ import {
 import { useState } from "react";
 import { AntDesign } from "@expo/vector-icons";
 
-const CommentsScreen = () => {
+const CommentsScreen = ({ route }) => {
   const [newComment, setNewComment] = useState("");
 
   const handleButtonClick = () => {
@@ -20,7 +20,7 @@ const CommentsScreen = () => {
 
   return (
     <View style={styles.wrapper}>
-      <Image source={require("../assets/images/testPostImg.png")} />
+      <Image source={{ uri: route.params }} style={styles.image} />
       <View style={styles.inputWrapper} behavior="position">
         <TextInput
           style={styles.input}

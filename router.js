@@ -1,116 +1,144 @@
 import { createStackNavigator } from "@react-navigation/stack";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+// import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Image, View, StyleSheet } from "react-native";
 import RegistrationScreen from "./Screens/RegistrationScreen";
 import LoginScreen from "./Screens/LoginScreen";
 import Home from "./Screens/Home";
-import PostsScreen from "./Screens/PostsScreen";
-import CreatePostsScreen from "./Screens/CreatePostsScreen";
-import ProfileScreen from "./Screens/ProfileScreen";
+import CommentsScreen from "./Screens/CommentsScreen";
+import MapScreen from "./Screens/MapScreen";
+// import PostsScreen from "./Screens/PostsScreen";
+// import CreatePostsScreen from "./Screens/CreatePostsScreen";
+// import ProfileScreen from "./Screens/ProfileScreen";
 // import posts from "./assets/images/posts.png";
+const AuthStack = createStackNavigator();
 const MainStack = createStackNavigator();
-const TabStack = createBottomTabNavigator();
+// const TabStack = createBottomTabNavigator();
 
 export const useRoute = (isAuth) => {
   if (!isAuth) {
     return (
       // <NavigationContainer>
-      <MainStack.Navigator>
-        <MainStack.Screen
+      <AuthStack.Navigator initialRouteName="Login">
+        <AuthStack.Screen
           name="Login"
           component={LoginScreen}
           options={{ headerShown: false }}
         />
-        <MainStack.Screen
+        <AuthStack.Screen
           name="Registration"
           component={RegistrationScreen}
           options={{ headerShown: false }}
         />
-        <MainStack.Screen
+        <AuthStack.Screen
           name="Home"
           component={Home}
           options={{ headerShown: false }}
         />
-      </MainStack.Navigator>
+      </AuthStack.Navigator>
     );
   }
   return (
-    <TabStack.Navigator
-      screenOptions={{
-        tabBarShowLabel: false,
-        tabBarStyle: {
-          paddingHorizontal: 39,
-          height: 83,
-          paddingBottom: 11,
-        },
-      }}
-    >
-      <TabStack.Screen
-        name="Публикации "
+    <MainStack.Navigator>
+      <MainStack.Screen
+        name="Home"
         component={Home}
         options={{
-          tabBarIcon: (focused, size, color) => {
-            return (
-              <Image
-                source={require("./assets/images/posts.png")}
-                style={{
-                  width: 24,
-                  height: 24,
-                  //   borderRadius: size,
-                }}
-              />
-            );
-          },
+          headerShown: false,
         }}
       />
-
-      <TabStack.Screen
-        name="Создать публикацию"
-        component={CreatePostsScreen}
+      <MainStack.Screen
+        name="Коментарі"
+        component={CommentsScreen}
         options={{
-          tabBarIcon: (focused, size, color) => {
-            return (
-              <View style={styles.createBtn}>
-                <Image
-                  source={require("./assets/images/create.png")}
-                  style={{
-                    width: 13,
-                    height: 13,
-                  }}
-                />
-              </View>
-            );
-          },
+          headerTitleAlign: "center",
+          cardStyle: { backgroundColor: "#FFFFFF" },
         }}
       />
-
-      <TabStack.Screen
-        name="Profile"
-        component={ProfileScreen}
+      <MainStack.Screen
+        name="Мапа"
+        component={MapScreen}
         options={{
-          tabBarIcon: (focused, size, color) => {
-            return (
-              <Image
-                source={require("./assets/images/profile.png")}
-                style={{
-                  width: 24,
-                  height: 24,
-                  //   borderRadius: size,
-                }}
-              />
-            );
-          },
+          headerTitleAlign: "center",
+          cardStyle: { backgroundColor: "#FFFFFF" },
         }}
       />
-    </TabStack.Navigator>
+    </MainStack.Navigator>
+    // <TabStack.Navigator
+    //   screenOptions={{
+    //     tabBarShowLabel: false,
+    //     tabBarStyle: {
+    //       paddingHorizontal: 39,
+    //       height: 83,
+    //       paddingBottom: 11,
+    //     },
+    //   }}
+    // >
+    //   <TabStack.Screen
+    //     name="Публикации "
+    //     component={Home}
+    //     options={{
+    //       tabBarIcon: (focused, size, color) => {
+    //         return (
+    //           <Image
+    //             source={require("./assets/images/posts.png")}
+    //             style={{
+    //               width: 24,
+    //               height: 24,
+    //               //   borderRadius: size,
+    //             }}
+    //           />
+    //         );
+    //       },
+    //     }}
+    //   />
+
+    //   <TabStack.Screen
+    //     name="Создать публикацию"
+    //     component={CreatePostsScreen}
+    //     options={{
+    //       tabBarIcon: (focused, size, color) => {
+    //         return (
+    //           <View style={styles.createBtn}>
+    //             <Image
+    //               source={require("./assets/images/create.png")}
+    //               style={{
+    //                 width: 13,
+    //                 height: 13,
+    //               }}
+    //             />
+    //           </View>
+    //         );
+    //       },
+    //     }}
+    //   />
+
+    //   <TabStack.Screen
+    //     name="Profile"
+    //     component={ProfileScreen}
+    //     options={{
+    //       tabBarIcon: (focused, size, color) => {
+    //         return (
+    //           <Image
+    //             source={require("./assets/images/profile.png")}
+    //             style={{
+    //               width: 24,
+    //               height: 24,
+    //               //   borderRadius: size,
+    //             }}
+    //           />
+    //         );
+    //       },
+    //     }}
+    //   />
+    // </TabStack.Navigator>
   );
 };
 
-const styles = StyleSheet.create({
-  createBtn: {
-    borderRadius: 20,
-    backgroundColor: "#FF6C00",
-    paddingHorizontal: 28.5,
-    paddingVertical: 13.5,
-  },
-});
+// const styles = StyleSheet.create({
+//   createBtn: {
+//     borderRadius: 20,
+//     backgroundColor: "#FF6C00",
+//     paddingHorizontal: 28.5,
+//     paddingVertical: 13.5,
+//   },
+// });

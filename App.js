@@ -5,12 +5,14 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { StyleSheet, View } from "react-native";
 import * as SplashScreen from "expo-splash-screen";
 import { useFonts } from "expo-font";
-
-import RegistrationScreen from "./Screens/RegistrationScreen";
-import LoginScreen from "./Screens/LoginScreen";
-import Home from "./Screens/Home";
-import CommentsScreen from "./Screens/CommentsScreen";
-import MapScreen from "./Screens/MapScreen";
+import { Provider } from "react-redux";
+import { useRoute } from "./router";
+import { store } from "./redux/store";
+// import RegistrationScreen from "./Screens/RegistrationScreen";
+// import LoginScreen from "./Screens/LoginScreen";
+// import Home from "./Screens/Home";
+// import CommentsScreen from "./Screens/CommentsScreen";
+// import MapScreen from "./Screens/MapScreen";
 
 const MainStack = createStackNavigator();
 
@@ -20,6 +22,8 @@ export default function App() {
     "Roboto-Medium": require("./assets/Fonts/Roboto-Medium.ttf"),
     "Roboto-Bolt": require("./assets/Fonts/Roboto-Bold.ttf"),
   });
+
+  const routing = useRoute(true);
 
   useEffect(() => {
     async function prepare() {
@@ -38,9 +42,11 @@ export default function App() {
 
   return (
     <View style={styles.container} onLayout={onLayout}>
-      <NavigationContainer>
-        <MainStack.Navigator initialRouteName="Login">
-          <MainStack.Screen
+      <Provider store={store}>
+        <NavigationContainer>
+          {routing}
+          {/* <MainStack.Navigator initialRouteName="Login"> */}
+          {/* <MainStack.Screen
             name="Login"
             component={LoginScreen}
             options={{ headerShown: false }}
@@ -49,8 +55,8 @@ export default function App() {
             name="Registration"
             component={RegistrationScreen}
             options={{ headerShown: false }}
-          />
-          <MainStack.Screen
+          /> */}
+          {/* <MainStack.Screen
             name="Home"
             component={Home}
             options={{
@@ -72,9 +78,10 @@ export default function App() {
               headerTitleAlign: "center",
               cardStyle: { backgroundColor: "#FFFFFF" },
             }}
-          />
-        </MainStack.Navigator>
-      </NavigationContainer>
+          /> */}
+          {/* </MainStack.Navigator> */}
+        </NavigationContainer>
+      </Provider>
     </View>
   );
 }

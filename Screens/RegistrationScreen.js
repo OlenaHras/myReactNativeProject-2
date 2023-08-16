@@ -14,8 +14,11 @@ import {
   Dimensions,
   Button,
 } from "react-native";
+import { useDispatch } from "react-redux";
 import { StatusBar } from "expo-status-bar";
 import { MaterialIcons } from "@expo/vector-icons";
+
+import { authSignUpUser } from "../redux/auth/authOperations";
 
 const initialState = {
   login: "",
@@ -28,6 +31,8 @@ const RegistrationScreen = ({ navigation }) => {
   const [isFocused, setIsFocused] = useState("");
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
 
+  const dispatch = useDispatch();
+
   const [screenWidth, setScreenWidth] = useState(
     Dimensions.get("screen").width
   );
@@ -38,9 +43,15 @@ const RegistrationScreen = ({ navigation }) => {
   const handleButtonClick = () => {
     setIsShowKeyboard(false);
     setstate(initialState);
-    console.log(state);
+    // console.log(state);
+    dispatch(authSignUpUser(state));
     Keyboard.dismiss();
-    navigation.navigate("Home");
+    // navigation.navigate("Home");
+  };
+
+  const keyboardHide = () => {
+    Keyboard.dismiss();
+    setIsShowKeyboard(false);
   };
 
   useEffect(() => {
@@ -65,7 +76,7 @@ const RegistrationScreen = ({ navigation }) => {
 
   return (
     <>
-      <TouchableWithoutFeedback onPress={handleButtonClick}>
+      <TouchableWithoutFeedback onPress={keyboardHide}>
         <ImageBackground
           source={require("../assets/images/bgImage.png")}
           style={{

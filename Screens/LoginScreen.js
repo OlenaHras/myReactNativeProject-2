@@ -14,6 +14,8 @@ import {
 
 import { useState, useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
+import { useDispatch } from "react-redux";
+import { authSignInUser } from "../redux/auth/authOperations";
 
 const initialState = {
   email: "",
@@ -24,6 +26,9 @@ const LoginScreen = ({ navigation }) => {
   const [state, setstate] = useState(initialState);
   const [isFocused, setIsFocused] = useState("");
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
+
+  const dispatch = useDispatch();
+
   const [screenWidth, setScreenWidth] = useState(
     Dimensions.get("screen").width
   );
@@ -33,10 +38,16 @@ const LoginScreen = ({ navigation }) => {
 
   const handleButtonClick = () => {
     setIsShowKeyboard(false);
-    console.log(state);
+    // console.log(state);
+    dispatch(authSignInUser(state));
     Keyboard.dismiss();
     setstate(initialState);
-    navigation.navigate("Home");
+    // navigation.navigate("Home");
+  };
+
+  const keyboardHide = () => {
+    Keyboard.dismiss();
+    setIsShowKeyboard(false);
   };
 
   useEffect(() => {
@@ -62,7 +73,7 @@ const LoginScreen = ({ navigation }) => {
   const orientation = screenWidth > screenHeight ? 24 : 111;
   return (
     <>
-      <TouchableWithoutFeedback onPress={handleButtonClick}>
+      <TouchableWithoutFeedback onPress={keyboardHide}>
         <ImageBackground
           source={require("../assets/images/bgImage.png")}
           style={{

@@ -2,14 +2,17 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { View, StyleSheet } from "react-native";
 import { HeaderBackButton } from "@react-navigation/elements";
 import { Feather, AntDesign, MaterialIcons } from "@expo/vector-icons";
+import { useDispatch } from "react-redux";
 
 import PostsScreen from "./PostsScreen";
 import CreatePostsScreen from "./CreatePostsScreen";
 import ProfileScreen from "./ProfileScreen";
+import { authSignOutUser } from "../redux/auth/authOperations";
 
 const TabStack = createBottomTabNavigator();
 
 const Home = ({ navigation }) => {
+  const dispatch = useDispatch();
   return (
     <View style={styles.container}>
       <TabStack.Navigator
@@ -30,7 +33,9 @@ const Home = ({ navigation }) => {
             headerRight: () => (
               <HeaderBackButton
                 onPress={() => {
-                  navigation.navigate("Login");
+                  dispatch(authSignOutUser());
+                  // console.log(navigation);
+                  // navigation.navigate("Login");
                 }}
                 backImage={(focused, size, color) => {
                   return (

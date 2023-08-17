@@ -7,9 +7,13 @@ import {
   Image,
   Button,
 } from "react-native";
+import { useDispatch } from "react-redux";
+import { authSignOutUser } from "../redux/auth/authOperations";
+
 import { MaterialIcons } from "@expo/vector-icons";
 
 const ProfileScreen = ({ navigation }) => {
+  const dispatch = useDispatch();
   return (
     <>
       <ImageBackground
@@ -20,7 +24,8 @@ const ProfileScreen = ({ navigation }) => {
           <TouchableOpacity
             style={styles.logoutBtn}
             onPress={() => {
-              navigation.navigate("Login");
+              dispatch(authSignOutUser());
+              // navigation.navigate("Login");
             }}
           >
             <MaterialIcons name="logout" size={24} color="#BDBDBD" />

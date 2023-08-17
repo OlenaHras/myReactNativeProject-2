@@ -11,6 +11,9 @@ import { Camera } from "expo-camera";
 import { useState, useEffect } from "react";
 import * as Location from "expo-location";
 import { Feather, FontAwesome, SimpleLineIcons } from "@expo/vector-icons";
+import db from "../config";
+import { getDownloadURL, ref, getStorage, uploadBytes } from "firebase/storage";
+import { collection, addDoc } from "firebase/firestore";
 
 const initialState = {
   photo: null,
@@ -24,18 +27,20 @@ const CreatePostsScreen = ({ navigation }) => {
   const [camera, setCamera] = useState(null);
 
   const handleButtonClick = async () => {
-    let location = await Location.getCurrentPositionAsync({});
-    const coords = {
-      latitude: location.coords.latitude,
-      longitude: location.coords.longitude,
-    };
-    setState((prevState) => ({
-      ...prevState,
-      location: coords,
-    }));
+    // let location = await Location.getCurrentPositionAsync({});
+    // const coords = {
+    //   latitude: location.coords.latitude,
+    //   longitude: location.coords.longitude,
+    // };
+    // setState((prevState) => ({
+    //   ...prevState,
+    //   location: coords,
+    // }));
     console.log("state:", state);
-    console.log("location:", coords);
-    navigation.navigate("Публікації", { state, coords });
+    // console.log("location:", coords);
+    navigation.navigate("Публікації", { state });
+    uploadPostToServer();
+    // uploadPhotoToServer();
     setState(initialState);
   };
 
@@ -51,11 +56,66 @@ const CreatePostsScreen = ({ navigation }) => {
 
   const takePhoto = async () => {
     const photo = await camera.takePictureAsync();
+    let location = await Location.getCurrentPositionAsync({});
+    const coords = {
+      latitude: location.coords.latitude,
+      longitude: location.coords.longitude,
+    };
     setState((prevState) => ({
       ...prevState,
       photo: photo.uri,
+      location: coords,
     }));
   };
+
+  // const uploadPhotoToServer = async () => {
+  //   const response = await fetch(state.photo);
+  //   const file = await response.blob();
+  //   const uniquePostId = Date.now().toString();
+  //   const storage = getStorage();
+  //   const storageRef = ref(storage, `postImage/${uniquePostId}`);
+  //   console.log(storageRef);
+  //   // await db.storage().ref();
+  // };
+  const uploadPhotoToServer = async () => {
+    try {
+      const response = await fetch(state.photo);
+      const file = await response.blob();
+
+      const uniquePostId = Date.now().toString();
+
+      const storage = getStorage();
+      const storageRef = ref(storage, `postImage/${uniquePostId}`);
+      await uploadBytes(storageRef, file);
+
+      const photoRef = await getDownloadURL(storageRef);
+      // console.log(photoRef);
+      return photoRef;
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  const uploadPostToServer = async () => {
+    try {
+      const photoRef = await uploadPhotoToServer();
+      console.log(photoRef);
+      setState((prevState) => ({
+        ...prevState,
+        photo: photoRef,
+      }));
+      await addDoc(collection(db, "posts"), {
+        ...state,
+        // location,
+        // coords,
+        userId,
+        nickname,
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   return (
     <View style={styles.container}>
       {state.photo ? (

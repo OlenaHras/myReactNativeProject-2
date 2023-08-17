@@ -27,7 +27,7 @@ import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAFks8y2_-RjkhkxRej9YB7XF6OoMAOjHE",
-  authDomain: "eact-native-d42c3.firebaseapp.com",
+  authDomain: "react-native-d42c3.firebaseapp.com",
   databaseURL: "https://react-native-d42c3.firebaseio.com",
   projectId: "react-native-d42c3",
   storageBucket: "react-native-d42c3.appspot.com",
@@ -37,7 +37,7 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-
+// const analytics = getAnalytics(app);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
 export const storage = getStorage(app);

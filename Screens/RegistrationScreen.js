@@ -21,7 +21,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { authSignUpUser } from "../redux/auth/authOperations";
 
 const initialState = {
-  login: "",
+  nickname: "",
   email: "",
   password: "",
 };
@@ -109,17 +109,17 @@ const RegistrationScreen = ({ navigation }) => {
                     style={{
                       ...styles.input,
                       borderColor:
-                        isFocused === "login" ? "#FF6C00" : "#E8E8E8",
+                        isFocused === "nickname" ? "#FF6C00" : "#E8E8E8",
                     }}
                     placeholder="Логін"
                     placeholderTextColor="#BDBDBD"
-                    value={state.login}
-                    onFocus={() => onFocus("login")}
-                    onBlur={() => onBlur("login")}
+                    value={state.nickname}
+                    onFocus={() => onFocus("nickname")}
+                    onBlur={() => onBlur("nickname")}
                     onChangeText={(value) =>
                       setstate((prevState) => ({
                         ...prevState,
-                        login: value,
+                        nickname: value,
                       }))
                     }
                   />

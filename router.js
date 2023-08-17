@@ -1,18 +1,12 @@
 import { createStackNavigator } from "@react-navigation/stack";
-// import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Image, View, StyleSheet } from "react-native";
 import RegistrationScreen from "./Screens/RegistrationScreen";
 import LoginScreen from "./Screens/LoginScreen";
 import Home from "./Screens/Home";
 import CommentsScreen from "./Screens/CommentsScreen";
 import MapScreen from "./Screens/MapScreen";
-// import PostsScreen from "./Screens/PostsScreen";
-// import CreatePostsScreen from "./Screens/CreatePostsScreen";
-// import ProfileScreen from "./Screens/ProfileScreen";
-// import posts from "./assets/images/posts.png";
+
 const AuthStack = createStackNavigator();
 const MainStack = createStackNavigator();
-// const TabStack = createBottomTabNavigator();
 
 export const useRoute = (isAuth) => {
   if (!isAuth) {
@@ -27,11 +21,6 @@ export const useRoute = (isAuth) => {
         <AuthStack.Screen
           name="Registration"
           component={RegistrationScreen}
-          options={{ headerShown: false }}
-        />
-        <AuthStack.Screen
-          name="Home"
-          component={Home}
           options={{ headerShown: false }}
         />
       </AuthStack.Navigator>

@@ -48,17 +48,15 @@ export const authSignUpUser =
 
 export const authSignInUser =
   ({ email, password }) =>
-  async (dispatch, getState) => {
+  async () => {
     try {
-      const user = await signInWithEmailAndPassword(auth, email, password);
-      // console.log(user);
+      await signInWithEmailAndPassword(auth, email, password);
     } catch (error) {
       console.log(error.message);
-      //   Alert.alert("Entered email or password are incorrect!");
     }
   };
 
-export const authSignOutUser = () => async (dispatch, getState) => {
+export const authSignOutUser = () => async (dispatch) => {
   const auth = getAuth();
   await signOut(auth);
 

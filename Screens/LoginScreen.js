@@ -38,11 +38,9 @@ const LoginScreen = ({ navigation }) => {
 
   const handleButtonClick = () => {
     setIsShowKeyboard(false);
-    // console.log(state);
     dispatch(authSignInUser(state));
     Keyboard.dismiss();
     setstate(initialState);
-    // navigation.navigate("Home");
   };
 
   const keyboardHide = () => {

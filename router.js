@@ -11,7 +11,6 @@ const MainStack = createStackNavigator();
 export const useRoute = (isAuth) => {
   if (!isAuth) {
     return (
-      // <NavigationContainer>
       <AuthStack.Navigator initialRouteName="Login">
         <AuthStack.Screen
           name="Login"
@@ -52,82 +51,5 @@ export const useRoute = (isAuth) => {
         }}
       />
     </MainStack.Navigator>
-    // <TabStack.Navigator
-    //   screenOptions={{
-    //     tabBarShowLabel: false,
-    //     tabBarStyle: {
-    //       paddingHorizontal: 39,
-    //       height: 83,
-    //       paddingBottom: 11,
-    //     },
-    //   }}
-    // >
-    //   <TabStack.Screen
-    //     name="Публикации "
-    //     component={Home}
-    //     options={{
-    //       tabBarIcon: (focused, size, color) => {
-    //         return (
-    //           <Image
-    //             source={require("./assets/images/posts.png")}
-    //             style={{
-    //               width: 24,
-    //               height: 24,
-    //               //   borderRadius: size,
-    //             }}
-    //           />
-    //         );
-    //       },
-    //     }}
-    //   />
-
-    //   <TabStack.Screen
-    //     name="Создать публикацию"
-    //     component={CreatePostsScreen}
-    //     options={{
-    //       tabBarIcon: (focused, size, color) => {
-    //         return (
-    //           <View style={styles.createBtn}>
-    //             <Image
-    //               source={require("./assets/images/create.png")}
-    //               style={{
-    //                 width: 13,
-    //                 height: 13,
-    //               }}
-    //             />
-    //           </View>
-    //         );
-    //       },
-    //     }}
-    //   />
-
-    //   <TabStack.Screen
-    //     name="Profile"
-    //     component={ProfileScreen}
-    //     options={{
-    //       tabBarIcon: (focused, size, color) => {
-    //         return (
-    //           <Image
-    //             source={require("./assets/images/profile.png")}
-    //             style={{
-    //               width: 24,
-    //               height: 24,
-    //               //   borderRadius: size,
-    //             }}
-    //           />
-    //         );
-    //       },
-    //     }}
-    //   />
-    // </TabStack.Navigator>
   );
 };
-
-// const styles = StyleSheet.create({
-//   createBtn: {
-//     borderRadius: 20,
-//     backgroundColor: "#FF6C00",
-//     paddingHorizontal: 28.5,
-//     paddingVertical: 13.5,
-//   },
-// });

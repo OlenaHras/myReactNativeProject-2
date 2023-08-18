@@ -17,15 +17,7 @@ const Main = () => {
   }, []);
 
   const routing = useRoute(stateChange);
-  // onAuthStateChanged(auth, (user) => {
-  //   if (user) {
-  //     // const uid = user.uid;
-  //     setUser(user);
-  //   } else {
-  //     // User is signed out
-  //     // ...
-  //   }
-  // });
+
   return (
     <NavigationContainer ref={navigationRef}>{routing}</NavigationContainer>
   );

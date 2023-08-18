@@ -1,16 +1,29 @@
 import { StyleSheet, Image, Text, View } from "react-native";
 import { useEffect, useState } from "react";
-
+import { collection, query, onSnapshot, doc } from "firebase/firestore";
+import { db } from "../config";
 import PostList from "../components/PostsList/PostsList";
+import { useSelector } from "react-redux";
 
-const PostsScreen = ({ navigation, route }) => {
+const PostsScreen = ({ navigation }) => {
   const [posts, setPosts] = useState([]);
+  const { email, nickname } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    if (route.params) {
-      setPosts((prev) => [...prev, route.params]);
+    getAllPosts();
+  }, []);
+
+  const getAllPosts = async () => {
+    try {
+      const ref = query(collection(db, "posts"));
+      onSnapshot(ref, (snapshot) => {
+        setPosts(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+      });
+    } catch (error) {
+      console.log(error.message);
     }
-  }, [route.params]);
+  };
+
   return (
     <View style={styles.pageWrapper}>
       <View style={styles.container}>
@@ -19,8 +32,8 @@ const PostsScreen = ({ navigation, route }) => {
           style={styles.userImg}
         />
         <View style={styles.info}>
-          <Text style={styles.userName}>Natali Romanova</Text>
-          <Text style={styles.email}>email@example.com</Text>
+          <Text style={styles.userName}>{nickname}</Text>
+          <Text style={styles.email}>{email}</Text>
         </View>
       </View>
       <PostList navigation={navigation} posts={posts} />

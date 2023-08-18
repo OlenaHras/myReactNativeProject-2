@@ -34,8 +34,6 @@ const Home = ({ navigation }) => {
               <HeaderBackButton
                 onPress={() => {
                   dispatch(authSignOutUser());
-                  // console.log(navigation);
-                  // navigation.navigate("Login");
                 }}
                 backImage={(focused, size, color) => {
                   return (

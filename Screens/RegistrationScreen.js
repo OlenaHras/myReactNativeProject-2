@@ -43,10 +43,8 @@ const RegistrationScreen = ({ navigation }) => {
   const handleButtonClick = () => {
     setIsShowKeyboard(false);
     setstate(initialState);
-    // console.log(state);
     dispatch(authSignUpUser(state));
     Keyboard.dismiss();
-    // navigation.navigate("Home");
   };
 
   const keyboardHide = () => {

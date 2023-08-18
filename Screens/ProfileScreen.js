@@ -4,16 +4,41 @@ import {
   ImageBackground,
   StyleSheet,
   TouchableOpacity,
-  Image,
-  Button,
 } from "react-native";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { db } from "../config";
 import { authSignOutUser } from "../redux/auth/authOperations";
+import { collection, query, onSnapshot, where } from "firebase/firestore";
 
 import { MaterialIcons } from "@expo/vector-icons";
+import PostList from "../components/PostsList/PostsList";
 
-const ProfileScreen = ({ navigation }) => {
+const ProfileScreen = () => {
+  const [userPosts, setUserPosts] = useState([]);
   const dispatch = useDispatch();
+  const { userId, nickname } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    getUserPosts();
+  }, []);
+
+  const getUserPosts = async () => {
+    try {
+      const ref = query(
+        collection(db, "posts"),
+        where("userId", "==", `${userId}`)
+      );
+      onSnapshot(ref, (snapshot) => {
+        setUserPosts(
+          snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+        );
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   return (
     <>
       <ImageBackground
@@ -25,7 +50,6 @@ const ProfileScreen = ({ navigation }) => {
             style={styles.logoutBtn}
             onPress={() => {
               dispatch(authSignOutUser());
-              // navigation.navigate("Login");
             }}
           >
             <MaterialIcons name="logout" size={24} color="#BDBDBD" />
@@ -38,7 +62,8 @@ const ProfileScreen = ({ navigation }) => {
               style={styles.addButton}
             />
           </View>
-          <Text style={styles.userName}>Natali Romanova</Text>
+          <Text style={styles.userName}>{nickname}</Text>
+          <PostList posts={userPosts} />
         </View>
       </ImageBackground>
     </>
@@ -47,7 +72,6 @@ const ProfileScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   bgImage: {
-    position: "absolute",
     width: "100%",
     height: "100%",
     left: 0,
@@ -66,12 +90,14 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 25,
   },
   logoutBtn: {
-    left: "42%",
-    bottom: "77%",
+    position: "absolute",
+    top: 0,
+    right: 0,
+    marginTop: 22,
+    marginRight: 16,
   },
   avatar: {
-    position: "relative",
-    marginTop: -570,
+    marginTop: -60,
     marginBottom: 32,
     width: 120,
     height: 120,

@@ -22,6 +22,5 @@ export const authSlice = createSlice({
       stateChange: payload.stateChange,
     }),
     authSignOut: () => state,
-    // indexedDB.deleteDatabase('firebaseLocalStorageDb');
   },
 });

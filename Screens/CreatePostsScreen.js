@@ -8,12 +8,13 @@ import {
   KeyboardAvoidingView,
 } from "react-native";
 import { Camera } from "expo-camera";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import * as Location from "expo-location";
 import { Feather, FontAwesome, SimpleLineIcons } from "@expo/vector-icons";
-import db from "../config";
+import { db } from "../config";
 import { getDownloadURL, ref, getStorage, uploadBytes } from "firebase/storage";
 import { collection, addDoc } from "firebase/firestore";
+import { useSelector } from "react-redux";
 
 const initialState = {
   photo: null,
@@ -26,21 +27,11 @@ const CreatePostsScreen = ({ navigation }) => {
   const [isFocused, setIsFocused] = useState("");
   const [camera, setCamera] = useState(null);
 
+  const { userId, nickname } = useSelector((state) => state.auth);
+
   const handleButtonClick = async () => {
-    // let location = await Location.getCurrentPositionAsync({});
-    // const coords = {
-    //   latitude: location.coords.latitude,
-    //   longitude: location.coords.longitude,
-    // };
-    // setState((prevState) => ({
-    //   ...prevState,
-    //   location: coords,
-    // }));
-    console.log("state:", state);
-    // console.log("location:", coords);
-    navigation.navigate("Публікації", { state });
+    navigation.navigate("Публікації");
     uploadPostToServer();
-    // uploadPhotoToServer();
     setState(initialState);
   };
 
@@ -68,15 +59,6 @@ const CreatePostsScreen = ({ navigation }) => {
     }));
   };
 
-  // const uploadPhotoToServer = async () => {
-  //   const response = await fetch(state.photo);
-  //   const file = await response.blob();
-  //   const uniquePostId = Date.now().toString();
-  //   const storage = getStorage();
-  //   const storageRef = ref(storage, `postImage/${uniquePostId}`);
-  //   console.log(storageRef);
-  //   // await db.storage().ref();
-  // };
   const uploadPhotoToServer = async () => {
     try {
       const response = await fetch(state.photo);
@@ -89,7 +71,6 @@ const CreatePostsScreen = ({ navigation }) => {
       await uploadBytes(storageRef, file);
 
       const photoRef = await getDownloadURL(storageRef);
-      // console.log(photoRef);
       return photoRef;
     } catch (error) {
       console.log(error.message);
@@ -99,15 +80,10 @@ const CreatePostsScreen = ({ navigation }) => {
   const uploadPostToServer = async () => {
     try {
       const photoRef = await uploadPhotoToServer();
-      console.log(photoRef);
-      setState((prevState) => ({
-        ...prevState,
-        photo: photoRef,
-      }));
+
       await addDoc(collection(db, "posts"), {
         ...state,
-        // location,
-        // coords,
+        photo: photoRef,
         userId,
         nickname,
       });

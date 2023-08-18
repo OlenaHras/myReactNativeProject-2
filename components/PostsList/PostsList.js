@@ -17,16 +17,16 @@ const PostList = ({ navigation, posts }) => {
           data={posts}
           renderItem={({ item }) => (
             <View style={styles.postWrapper}>
-              <Image
-                source={{ uri: item.state.photo }}
-                style={{ width: 343, height: 240 }}
-              />
-              <Text style={styles.postTitle}>{item.state.title}</Text>
+              <Image source={{ uri: item.photo }} style={styles.postImg} />
+              <Text style={styles.postTitle}>{item.title}</Text>
               <View style={styles.postInfo}>
                 <View style={styles.rating}>
                   <TouchableOpacity
                     onPress={() => {
-                      navigation.navigate("Коментарі", item.state.photo);
+                      navigation.navigate("Коментарі", {
+                        photo: item.photo,
+                        postId: item.id,
+                      });
                     }}
                   >
                     <View style={{ ...styles.postComments, marginRight: 24 }}>
@@ -47,7 +47,7 @@ const PostList = ({ navigation, posts }) => {
                 </View>
                 <TouchableOpacity
                   onPress={() => {
-                    navigation.navigate("Мапа", item.coords);
+                    navigation.navigate("Мапа", { location: item.location });
                   }}
                 >
                   <View style={styles.postComments}>
@@ -56,7 +56,7 @@ const PostList = ({ navigation, posts }) => {
                       size={24}
                       color="#BDBDBD"
                     />
-                    <Text>{item.state.locality}</Text>
+                    <Text>{item.locality}</Text>
                   </View>
                 </TouchableOpacity>
               </View>
@@ -78,6 +78,11 @@ const styles = StyleSheet.create({
   postWrapper: {
     flex: 1,
     marginBottom: 34,
+  },
+  postImg: {
+    width: 343,
+    height: 240,
+    borderRadius: 8,
   },
   postTitle: {
     marginVertical: 8,

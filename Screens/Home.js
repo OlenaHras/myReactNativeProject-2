@@ -47,7 +47,7 @@ const Home = ({ navigation }) => {
             headerStyle: {
               borderBottomColor: "#E8E8E8",
               borderBottomWidth: 2,
-              height: 88,
+              height: 60,
             },
             headerTitleAlign: "center",
 
@@ -67,7 +67,7 @@ const Home = ({ navigation }) => {
             headerStyle: {
               borderBottomColor: "#E8E8E8",
               borderBottomWidth: 2,
-              height: 88,
+              height: 60,
             },
             headerLeft: () => (
               <HeaderBackButton
@@ -97,7 +97,6 @@ const Home = ({ navigation }) => {
             headerLeft: () => (
               <HeaderBackButton
                 onPress={() => {
-                  console.log("clicked");
                   navigation.goBack();
                 }}
               />
